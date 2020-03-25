@@ -1,4 +1,4 @@
-#!E:\Python\practice\untitled7420\venv\Scripts\python.exe
+#!E:\back-end\Python\practice\django_auth_example\venv\Scripts\python.exe
 # EASY-INSTALL-ENTRY-SCRIPT: 'setuptools==40.8.0','console_scripts','easy_install'
 __requires__ = 'setuptools==40.8.0'
 import re

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/untitled7420.iml" filepath="$PROJECT_DIR$/.idea/untitled7420.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/django_auth_example.iml" filepath="$PROJECT_DIR$/.idea/django_auth_example.iml" />
     </modules>
   </component>
 </project>
