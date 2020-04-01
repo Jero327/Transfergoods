@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect
 
 from .forms import RegisterForm
 
+from django.contrib import messages
+
 def register(request):
     redirect_to = request.POST.get('next', request.GET.get('next', ''))
     if request.method == 'POST':
@@ -11,6 +13,7 @@ def register(request):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'Register successfully, please login!', extra_tags='alert')
             if redirect_to:
                 return redirect(redirect_to)
             else:
@@ -24,3 +27,4 @@ def register(request):
 
 def index(request):
     return render(request, 'index.html')
+
