@@ -127,6 +127,6 @@ STATICFILES_DIRS = [
 AUTH_USER_MODEL = 'users.User'
 
 LOGOUT_REDIRECT_URL = '/'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/findneeds/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

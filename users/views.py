@@ -29,5 +29,5 @@ def index(request):
     return render(request, 'index.html')
 
 def findservice(request):
-    return render(request, 'users/findservice.html')
+    return render(request, 'findservice.html')
 
