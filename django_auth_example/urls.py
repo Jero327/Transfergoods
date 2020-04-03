@@ -23,8 +23,8 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('users/', include('django.contrib.auth.urls')),
     url(r'^$', views.index, name='index'),
-    url(r'findneeds', views.index, name='findneeds'),
-    url(r'findservice/', views.findservice, name='findservice'),
+    url(r'^findneeds', views.index, name='findneeds'),
+    url(r'^findservice/', views.findservice, name='findservice'),
 
     # url(r'users/', views.index, name='index'),
 ]
