@@ -16,14 +16,12 @@
 </head>
 <body>
 {% if user.is_authenticated %}
-you have already log in! If you want to register and login within a new account, please log out first.
-{% else %}
     <div class="flex-center">
         <div class="container">
             <div class="flex-center">
                 <div class="unit-1-2 unit-1-on-mobile">
-                    <h3>Register</h3>
-                    <form class="form" action="{% url 'users:register' %}" method="post">
+                    <h3>addneeds</h3>
+                    <form class="form" action="{% url 'addneeds' %}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         {% for field in form %}
                             {{ field.label_tag }}
@@ -33,16 +31,14 @@ you have already log in! If you want to register and login within a new account,
                                 <p class="help text-small text-muted">{{ field.help_text|safe }}</p>
                             {% endif %}
                         {% endfor %}
-                        <button type="submit" class="btn btn-primary btn-block">Register</button>
-                        <input type="hidden" name="next" value="{{ next }}"/>
+                        <button type="submit" class="btn btn-primary btn-block">Publish</button>
                     </form>
-                    <div class="flex-center top-gap text-small">
-                        <a href="..\..\users\login\">Already have account</a>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+{% else %}
+You haven't log in, please login.
 {% endif %}
 </body>
 </html>

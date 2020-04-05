@@ -25,6 +25,10 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^findneeds', views.index, name='findneeds'),
     url(r'^findservice/', views.findservice, name='findservice'),
+    url(r'^addservice/', views.addservice, name='addservice'),
+    url(r'^addneeds/', views.addneeds, name='addneeds'),
+    url(r'^addservicedone/', views.addservicedone, name='addservicedone'),
+    url(r'^addneedsdone/', views.addneedsdone, name='addneedsdone'),
 
     # url(r'users/', views.index, name='index'),
 ]

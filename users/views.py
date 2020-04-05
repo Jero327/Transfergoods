@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 
-from .forms import RegisterForm
+from .forms import RegisterForm, AddServiceForm, AddNeedsForm
 
 from django.contrib import messages
 
@@ -31,3 +31,36 @@ def index(request):
 def findservice(request):
     return render(request, 'findservice.html')
 
+def addservice(request):
+    if request.method == 'POST':
+        form = AddServiceForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Addservice successfully!', extra_tags='alert')
+            return redirect('/addservicedone/')
+
+    else:
+        form = AddServiceForm()
+
+    return render(request, 'addservice.html', context={'form': form})
+
+def addneeds(request):
+    if request.method == 'POST':
+        form = AddNeedsForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Addneeds successfully!', extra_tags='alert')
+            return redirect('/addneedsdone/')
+
+    else:
+        form = AddNeedsForm()
+
+    return render(request, 'addneeds.html', context={'form': form})
+
+def addservicedone(request):
+    return render(request, 'addservicedone.html')
+
+def addneedsdone(request):
+    return render(request, 'addneedsdone.html')

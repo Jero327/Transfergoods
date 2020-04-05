@@ -124,6 +124,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'templates/static'),
 ]
 
+MEDIA_URL = '/goodspic/'
+
+MEDIA_ROOT = (os.path.join(BASE_DIR, 'templates'))
+
 AUTH_USER_MODEL = 'users.User'
 
 LOGOUT_REDIRECT_URL = '/'
