@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect
 
 from .forms import RegisterForm, AddServiceForm, AddNeedsForm
 
+from users.models import AddNeeds, AddService
+
 from django.contrib import messages
 
 def register(request):
@@ -26,10 +28,14 @@ def register(request):
 
 
 def index(request):
-    return render(request, 'index.html')
+    allneeds = AddNeeds.objects.all()
+
+    return render(request, 'index.html', context={'allneeds': allneeds})
 
 def findservice(request):
-    return render(request, 'findservice.html')
+    allservice = AddService.objects.all()
+
+    return render(request, 'findservice.html', context={'allservice': allservice})
 
 def addservice(request):
     if request.method == 'POST':
@@ -64,3 +70,8 @@ def addservicedone(request):
 
 def addneedsdone(request):
     return render(request, 'addneedsdone.html')
+
+# def displayneeds(request):
+#     allneeds = AddNeeds.objects.all()
+#
+#     return render(request, 'index.html', context={'allneeds': allneeds})

@@ -94,178 +94,38 @@
                             </p>
                         </div>
                         <div class="row articles">
-                            <div class="col-sm-6 col-md-4 item">
-                                <a href="#">
-                                    <img class="img-fluid" src="{% static 'img/Sweeping robot.jpg' %}">
-                                </a>
-                                <h3 class="text-light name">
-                                    Beijing to Auckland
-                                </h3>
-                                <h3 class="text-light name">
-                                    28 Mar - 6 Apr
-                                </h3>
-                                <h3 class="text-light name">
-                                    <strong>
-                                        Sweeping robot
-                                    </strong>
-                                </h3>
-                                <h3 class="text-light name">
-                                    $ 68
-                                </h3>
-                                <a class="action" href="#">
-                                    <i class="fa fa-arrow-circle-right">
+                            {% for needs in allneeds %}
+                                <div class="col-sm-6 col-md-4 item">
+                                    <a href="#">
+                                        <img class="img-fluid" src="{{ MEDIA_URL }}{{ needs.image }}">
+                                    </a>
+                                    <h3 class="text-light name">
+                                        <strong>
+                                            {{ needs.good_name }}
+                                        </strong>
+                                    </h3>
+                                    <h3 class="text-light name">
+                                        $ {{ needs.offer_price }}
+                                    </h3>
+                                    <h3 class="text-light name">
+                                        {{ needs.start_city }} to {{ needs.end_city }}
+                                    </h3>
+                                    <h3 class="text-light name">
+                                        {{ needs.start_date }} - {{ needs.end_date }}
+                                    </h3>
+                                    <h3 class="text-light name">
+                                        {{ needs.message }}
+                                    </h3>
+                                    <a class="action" href="#">
+                                        <i class="fa fa-arrow-circle-right">
 
-                                    </i>
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-md-4 item">
-                                <a href="#">
-                                    <img class="img-fluid" src="{% static 'img/building.jpg' %}">
-                                </a>
-                                <h3 class="name">
-                                    Article Title
-                                </h3>
-                                <p class="description">
-                                    Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.
-                                </p>
-                                <a class="action" href="#">
-                                    <i class="fa fa-arrow-circle-right">
-
-                                    </i>
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-md-4 item">
-                                <a href="#">
-                                    <img class="img-fluid" src="{% static 'img/loft.jpg' %}">
-                                </a>
-                                <h3 class="name">
-                                    Article Title
-                                </h3>
-                                <p class="description">
-                                    Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.
-                                </p>
-                                <a class="action" href="#">
-                                    <i class="fa fa-arrow-circle-right">
-
-                                    </i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="row articles">
-                            <div class="col-sm-6 col-md-4 item">
-                                <a href="#">
-                                    <img class="img-fluid" src="{% static 'img/Sweeping robot.jpg' %}">
-                                </a>
-                                <h3 class="text-light name">
-                                    Beijing to Auckland
-                                </h3>
-                                <h3 class="text-light name">
-                                    28 Mar - 6 Apr
-                                </h3>
-                                <h3 class="text-light name">
-                                    <strong>
-                                        Sweeping robot
-                                    </strong>
-                                </h3>
-                                <h3 class="text-light name">
-                                    $ 68
-                                </h3>
-                                <a class="action" href="#">
-                                    <i class="fa fa-arrow-circle-right">
-
-                                    </i>
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-md-4 item">
-                                <a href="#">
-                                    <img class="img-fluid" src="{% static 'img/building.jpg' %}">
-                                </a>
-                                <h3 class="name">
-                                    Article Title
-                                </h3>
-                                <p class="description">
-                                    Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.
-                                </p>
-                                <a class="action" href="#">
-                                    <i class="fa fa-arrow-circle-right">
-
-                                    </i>
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-md-4 item">
-                                <a href="#">
-                                    <img class="img-fluid" src="{% static 'img/loft.jpg' %}">
-                                </a>
-                                <h3 class="name">
-                                    Article Title
-                                </h3>
-                                <p class="description">
-                                    Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.
-                                </p>
-                                <a class="action" href="#">
-                                    <i class="fa fa-arrow-circle-right">
-
-                                    </i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="row articles">
-                            <div class="col-sm-6 col-md-4 item">
-                                <a href="#">
-                                    <img class="img-fluid" src="{% static 'img/Sweeping robot.jpg' %}">
-                                </a>
-                                <h3 class="text-light name">
-                                    Beijing to Auckland
-                                </h3>
-                                <h3 class="text-light name">
-                                    28 Mar - 6 Apr
-                                </h3>
-                                <h3 class="text-light name">
-                                    <strong>
-                                        Sweeping robot
-                                    </strong>
-                                </h3>
-                                <h3 class="text-light name">
-                                    $ 68
-                                </h3>
-                                <a class="action" href="#">
-                                    <i class="fa fa-arrow-circle-right">
-
-                                    </i>
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-md-4 item">
-                                <a href="#">
-                                    <img class="img-fluid" src="{% static 'img/building.jpg' %}">
-                                </a>
-                                <h3 class="name">
-                                    Article Title
-                                </h3>
-                                <p class="description">
-                                    Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.
-                                </p>
-                                <a class="action" href="#">
-                                    <i class="fa fa-arrow-circle-right">
-
-                                    </i>
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-md-4 item">
-                                <a href="#">
-                                    <img class="img-fluid" src="{% static 'img/loft.jpg' %}">
-                                </a>
-                                <h3 class="name">
-                                    Article Title
-                                </h3>
-                                <p class="description">
-                                    Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.
-                                </p>
-                                <a class="action" href="#">
-                                    <i class="fa fa-arrow-circle-right">
-
-                                    </i>
-                                </a>
-                            </div>
+                                        </i>
+                                    </a>
+                                </div>
+                            {% empty %}
+                                <p>The number of row in datebase:{{allneeds|length}}</p>
+                                <p>Nothing to be rendered.</p>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>

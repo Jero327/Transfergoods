@@ -12,6 +12,7 @@ class User(AbstractUser):
         pass
 
 class AddService(models.Model):
+    image = models.ImageField(blank=True, upload_to='servicepic/')
     start_city = models.CharField(max_length=100)
     end_city = models.CharField(max_length=100)
     start_date = models.DateField()
