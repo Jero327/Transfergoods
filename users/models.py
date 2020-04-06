@@ -22,7 +22,7 @@ class AddService(models.Model):
 
 class AddNeeds(models.Model):
     # image = models.ImageField(label='Please upload a picture of your item if you have one', required=False, help_text=_('Optional image (2.5 MB or less)'), allow_empty_file=True, blank=True, upload_to='goodspic')
-    image = models.ImageField(blank=True, upload_to='goodspic/')
+    image = models.ImageField(blank=True, upload_to='needspic/')
     start_city = models.CharField(max_length=100)
     end_city = models.CharField(max_length=100)
     start_date = models.DateField()
