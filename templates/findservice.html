@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Transfergoods</title>
     <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
-    <link rel="stylesheet" href="https://unpkg.com/mobi.css/dist/mobi.min.css">
+{#    <link rel="stylesheet" href="https://unpkg.com/mobi.css/dist/mobi.min.css">#}
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
     <link rel="stylesheet" href="{% static 'css/Header-Blue.css' %}">
@@ -43,14 +43,18 @@
                                                 My Transfergoods
                                             </a>
                                             <div class="dropdown-menu" role="menu">
-                                                <a class="dropdown-item" role="presentation" href="#">
-                                                    Watchlist
+                                                <a class="dropdown-item" role="presentation" style="color: #4f86c3">
+                                                    Welcome: {{ user.username }}
+                                                </a>
+                                                <a class="dropdown-item" role="presentation" href="{% url 'mypublish' %}">
+                                                    My Publish
                                                 </a>
                                                 <a class="dropdown-item" role="presentation" href="#">
-                                                    Order
+                                                    My Order
                                                 </a>
-                                                <a class="dropdown-item" role="presentation" href="#">
-                                                    Publish</a>
+                                                <a class="dropdown-item" role="presentation" href="{% url 'password_change' %}?next={{ request.path }}">
+                                                    Change Password
+                                                </a>
                                             </div>
                                         </li>
                                     </ul>
@@ -73,9 +77,6 @@
                                     <span class="navbar-text">
                                         <a class="login" href="{% url 'logout' %}?next={{ request.path }}">
                                             Logout
-                                        </a>
-                                        <a class="register" href="{% url 'password_change' %}?next={{ request.path }}">
-                                            Reset
                                         </a>
                                     </span>
 

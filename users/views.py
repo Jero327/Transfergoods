@@ -8,6 +8,10 @@ from users.models import AddNeeds, AddService
 
 from django.contrib import messages
 
+from django.urls import reverse
+
+from datetime import datetime
+
 def register(request):
     redirect_to = request.POST.get('next', request.GET.get('next', ''))
     if request.method == 'POST':
@@ -28,12 +32,12 @@ def register(request):
 
 
 def index(request):
-    allneeds = AddNeeds.objects.all()
+    allneeds = AddNeeds.objects.filter(orderstatus=0)
 
     return render(request, 'index.html', context={'allneeds': allneeds})
 
 def findservice(request):
-    allservice = AddService.objects.all()
+    allservice = AddService.objects.filter(orderstatus=0)
 
     return render(request, 'findservice.html', context={'allservice': allservice})
 
@@ -42,7 +46,10 @@ def addservice(request):
         form = AddServiceForm(request.POST, request.FILES)
 
         if form.is_valid():
-            form.save()
+            instance = form.save(commit=False)
+            username = request.user
+            instance.user = username
+            instance.save()
             messages.success(request, 'Addservice successfully!', extra_tags='alert')
             return redirect('/addservicedone/')
 
@@ -56,7 +63,10 @@ def addneeds(request):
         form = AddNeedsForm(request.POST, request.FILES)
 
         if form.is_valid():
-            form.save()
+            instance = form.save(commit=False)
+            username = request.user
+            instance.user = username
+            instance.save()
             messages.success(request, 'Addneeds successfully!', extra_tags='alert')
             return redirect('/addneedsdone/')
 
@@ -75,3 +85,68 @@ def addneedsdone(request):
 #     allneeds = AddNeeds.objects.all()
 #
 #     return render(request, 'index.html', context={'allneeds': allneeds})
+
+def mypublish(request):
+    publishedneeds = AddNeeds.objects.filter(user=request.user, orderstatus=0)
+    placedneeds = AddNeeds.objects.filter(user=request.user, orderstatus=3)
+    payedneeds = AddNeeds.objects.filter(user=request.user, orderstatus=1)
+    completedneeds = AddNeeds.objects.filter(user=request.user, orderstatus=2)
+
+    publishedservice = AddService.objects.filter(user=request.user, orderstatus=0)
+    placedservice = AddService.objects.filter(user=request.user, orderstatus=3)
+    payedservice = AddService.objects.filter(user=request.user, orderstatus=1)
+    completedservice = AddService.objects.filter(user=request.user, orderstatus=2)
+
+    return render(request, 'mypublish.html', context={
+        'publishedneeds':publishedneeds,
+        'placedneeds': placedneeds,
+        'payedneeds': payedneeds,
+        'completedneeds': completedneeds,
+
+        'publishedservice':publishedservice,
+        'placedservice': placedservice,
+        'payedservice': payedservice,
+        'completedservice': completedservice,
+    })
+
+def deleteneeds(request):
+    print('Are you sure?')
+
+    needsid = request.GET.get('needsid')
+    needs = AddNeeds.objects.get(id=needsid)
+    needs.delete()
+    return redirect(reverse('mypublish'))
+
+def editneeds(request):
+    needsid = request.GET.get('needsid')
+    needs = AddNeeds.objects.get(id=needsid)
+
+    return render(request, 'editneeds.html', {'needs':needs})
+
+def editneeds_handler(request):
+    needsid = request.POST.get('needsid')
+
+    image = request.POST.get('image')
+    start_city = request.POST.get('start_city')
+    end_city = request.POST.get('end_city')
+    start_date = request.POST.get('start_date')
+    end_date = request.POST.get('end_date')
+    good_name = request.POST.get('good_name')
+    offer_price = request.POST.get('offer_price')
+    message = request.POST.get('message')
+
+    needs = AddNeeds.objects.get(id=needsid)
+
+    needs.image = image
+    needs.start_city = start_city
+    needs.end_city = end_city
+    needs.start_date =  datetime.strptime(start_date, '%Y-%m-%d')
+    needs.end_date =  datetime.strptime(end_date, '%Y-%m-%d')
+    needs.good_name = good_name
+    needs.offer_price = offer_price
+    needs.message = message
+
+    needs.save()
+    return redirect(reverse('mypublish'))
+
+
