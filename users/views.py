@@ -149,4 +149,42 @@ def editneeds_handler(request):
     needs.save()
     return redirect(reverse('mypublish'))
 
+def deleteservice(request):
+    print('Are you sure?')
+
+    serviceid = request.GET.get('serviceid')
+    service = AddService.objects.get(id=serviceid)
+    service.delete()
+    return redirect(reverse('mypublish'))
+
+def editservice(request):
+    serviceid = request.GET.get('serviceid')
+    service = AddService.objects.get(id=serviceid)
+
+    return render(request, 'editservice.html', {'service':service})
+
+def editservice_handler(request):
+    serviceid = request.POST.get('serviceid')
+
+    image = request.POST.get('image')
+    start_city = request.POST.get('start_city')
+    end_city = request.POST.get('end_city')
+    start_date = request.POST.get('start_date')
+    end_date = request.POST.get('end_date')
+    ask_price = request.POST.get('ask_price')
+    message = request.POST.get('message')
+
+    service = AddService.objects.get(id=serviceid)
+
+    service.image = image
+    service.start_city = start_city
+    service.end_city = end_city
+    service.start_date =  datetime.strptime(start_date, '%Y-%m-%d')
+    service.end_date =  datetime.strptime(end_date, '%Y-%m-%d')
+    service.ask_price = ask_price
+    service.message = message
+
+    service.save()
+    return redirect(reverse('mypublish'))
+
 

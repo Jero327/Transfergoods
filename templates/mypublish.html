@@ -157,12 +157,12 @@
             <td>{{ publishedservice.orderuser }}</td>
             <td>{{ publishedservice.image }}</td>
             <td>
-                <a href="#">
+                <a href="{% url 'editservice' %}?serviceid={{ publishedservice.id }}">
                     Modify
                 </a>
             </td>
             <td>
-                <a href="#">
+                <a href="{% url 'deleteservice' %}?serviceid={{ publishedservice.id }}">
                     Delete
                 </a>
             </td>
@@ -231,7 +231,7 @@
                 </a>
             </td>
             <td>
-                <a href="#">
+                <a href="{% url 'deleteservice' %}?serviceid={{ completedservice.id }}">
                     Delete
                 </a>
             </td>
