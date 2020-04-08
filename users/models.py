@@ -24,7 +24,8 @@ class AddService(models.Model):
     orderuser = models.CharField(max_length=100, null=True)
     orderstatus = models.IntegerField(default=0)
 
-    isDelete  = models.BooleanField(default=False)
+    isDeleteByUser  = models.BooleanField(default=False)
+    isDeleteByOrderUser = models.BooleanField(default=False)
 
     def __str__(self):
         return "AddService(user=%s)" % self.user
@@ -44,7 +45,8 @@ class AddNeeds(models.Model):
     orderuser = models.CharField(max_length=100, null=True)
     orderstatus = models.IntegerField(default=0)
 
-    isDelete  = models.BooleanField(default=False)
+    isDeleteByUser = models.BooleanField(default=False)
+    isDeleteByOrderUser = models.BooleanField(default=False)
 
     def __str__(self):
         return "AddNeeds(user=%s)" % self.user

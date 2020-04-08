@@ -38,6 +38,9 @@ urlpatterns = [
     url(r'^deleteservice$', views.deleteservice, name='deleteservice'),
     url(r'^editservice$', views.editservice, name='editservice'),
     url(r'^editservice_handler$', views.editservice_handler, name='editservice_handler'),
+    url(r'^myorder$', views.myorder, name='myorder'),
+    url(r'^orderuserdeleteneeds$', views.orderuserdeleteneeds, name='orderuserdeleteneeds'),
+    url(r'^orderuserdeleteservice$', views.orderuserdeleteservice, name='orderuserdeleteservice'),
 
     # url(r'users/', views.index, name='index'),
 ]+ static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)

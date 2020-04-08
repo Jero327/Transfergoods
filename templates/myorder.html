@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Transfergoods</title>
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+{#    <link rel="stylesheet" href="https://unpkg.com/mobi.css/dist/mobi.min.css">#}
+    <style>
+        .errorlist {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+{% if user.is_authenticated %}
+    <h1>Needs</h1>
+    <table border="1">
+        <tr>
+            <td>start_city</td>
+            <td>end_city</td>
+            <td>start_date</td>
+            <td>end_date</td>
+            <td>good_name</td>
+            <td>offer_price</td>
+            <td>message</td>
+            <td>order_status</td>
+            <td>user</td>
+            <td>image</td>
+            <td>Modify</td>
+            <td>Delete</td>
+        </tr>
+        {% for placedneeds in placedneeds %}
+        <tr>
+            <td>{{ placedneeds.start_city }}</td>
+            <td>{{ placedneeds.end_city }}</td>
+            <td>{{ placedneeds.start_date }}</td>
+            <td>{{ placedneeds.end_date }}</td>
+            <td>{{ placedneeds.good_name }}</td>
+            <td>{{ placedneeds.offer_price }}</td>
+            <td>{{ placedneeds.message }}</td>
+            <td>placed</td>
+            <td>{{ placedneeds.user }}</td>
+            <td>{{ placedneeds.image }}</td>
+            <td>
+                <a>
+                    Forbidden
+                </a>
+            </td>
+            <td>
+                <a>
+                    Forbidden
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+        {% for payedneeds in payedneeds %}
+        <tr>
+            <td>{{ payedneeds.start_city }}</td>
+            <td>{{ payedneeds.end_city }}</td>
+            <td>{{ payedneeds.start_date }}</td>
+            <td>{{ payedneeds.end_date }}</td>
+            <td>{{ payedneeds.good_name }}</td>
+            <td>{{ payedneeds.offer_price }}</td>
+            <td>{{ payedneeds.message }}</td>
+            <td>payed</td>
+            <td>{{ payedneeds.user }}</td>
+            <td>{{ payedneeds.image }}</td>
+            <td>
+                <a>
+                    Forbidden
+                </a>
+            </td>
+            <td>
+                <a>
+                    Forbidden
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+        {% for completedneeds in completedneeds %}
+        <tr>
+            <td>{{ completedneeds.start_city }}</td>
+            <td>{{ completedneeds.end_city }}</td>
+            <td>{{ completedneeds.start_date }}</td>
+            <td>{{ completedneeds.end_date }}</td>
+            <td>{{ completedneeds.good_name }}</td>
+            <td>{{ completedneeds.offer_price }}</td>
+            <td>{{ completedneeds.message }}</td>
+            <td>completed</td>
+            <td>{{ completedneeds.user }}</td>
+            <td>{{ completedneeds.image }}</td>
+            <td>
+                <a>
+                    Forbidden
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'orderuserdeleteneeds' %}?needsid={{ completedneeds.id }}">
+                    Delete
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h1>Service</h1>
+    <table border="1">
+        <tr>
+            <td>start_city</td>
+            <td>end_city</td>
+            <td>start_date</td>
+            <td>end_date</td>
+            <td>ask_price</td>
+            <td>message</td>
+            <td>order_status</td>
+            <td>user</td>
+            <td>image</td>
+            <td>Modify</td>
+            <td>Delete</td>
+        </tr>
+        {% for placedservice in placedservice %}
+        <tr>
+            <td>{{ placedservice.start_city }}</td>
+            <td>{{ placedservice.end_city }}</td>
+            <td>{{ placedservice.start_date }}</td>
+            <td>{{ placedservice.end_date }}</td>
+            <td>{{ placedservice.ask_price }}</td>
+            <td>{{ placedservice.message }}</td>
+            <td>placed</td>
+            <td>{{ placedservice.user }}</td>
+            <td>{{ placedservice.image }}</td>
+            <td>
+                <a>
+                    Forbidden
+                </a>
+            </td>
+            <td>
+                <a>
+                    Forbidden
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+        {% for payedservice in payedservice %}
+        <tr>
+            <td>{{ payedservice.start_city }}</td>
+            <td>{{ payedservice.end_city }}</td>
+            <td>{{ payedservice.start_date }}</td>
+            <td>{{ payedservice.end_date }}</td>
+            <td>{{ payedservice.ask_price }}</td>
+            <td>{{ payedservice.message }}</td>
+            <td>payed</td>
+            <td>{{ payedservice.user }}</td>
+            <td>{{ payedservice.image }}</td>
+            <td>
+                <a>
+                    Forbidden
+                </a>
+            </td>
+            <td>
+                <a>
+                    Forbidden
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+        {% for completedservice in completedservice %}
+        <tr>
+            <td>{{ completedservice.start_city }}</td>
+            <td>{{ completedservice.end_city }}</td>
+            <td>{{ completedservice.start_date }}</td>
+            <td>{{ completedservice.end_date }}</td>
+            <td>{{ completedservice.ask_price }}</td>
+            <td>{{ completedservice.message }}</td>
+            <td>completed</td>
+            <td>{{ completedservice.user }}</td>
+            <td>{{ completedservice.image }}</td>
+            <td>
+                <a>
+                    Forbidden
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'orderuserdeleteservice' %}?serviceid={{ completedservice.id }}">
+                    Delete
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% else %}
+You haven't log in, please login.
+{% endif %}
+</body>
+</html>

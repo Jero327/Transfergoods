@@ -87,15 +87,15 @@ def addneedsdone(request):
 #     return render(request, 'index.html', context={'allneeds': allneeds})
 
 def mypublish(request):
-    publishedneeds = AddNeeds.objects.filter(user=request.user, orderstatus=0)
-    placedneeds = AddNeeds.objects.filter(user=request.user, orderstatus=3)
-    payedneeds = AddNeeds.objects.filter(user=request.user, orderstatus=1)
-    completedneeds = AddNeeds.objects.filter(user=request.user, orderstatus=2)
+    publishedneeds = AddNeeds.objects.filter(user=request.user, orderstatus=0, isDeleteByUser=False)
+    placedneeds = AddNeeds.objects.filter(user=request.user, orderstatus=3, isDeleteByUser=False)
+    payedneeds = AddNeeds.objects.filter(user=request.user, orderstatus=1, isDeleteByUser=False)
+    completedneeds = AddNeeds.objects.filter(user=request.user, orderstatus=2, isDeleteByUser=False)
 
-    publishedservice = AddService.objects.filter(user=request.user, orderstatus=0)
-    placedservice = AddService.objects.filter(user=request.user, orderstatus=3)
-    payedservice = AddService.objects.filter(user=request.user, orderstatus=1)
-    completedservice = AddService.objects.filter(user=request.user, orderstatus=2)
+    publishedservice = AddService.objects.filter(user=request.user, orderstatus=0, isDeleteByUser=False)
+    placedservice = AddService.objects.filter(user=request.user, orderstatus=3, isDeleteByUser=False)
+    payedservice = AddService.objects.filter(user=request.user, orderstatus=1, isDeleteByUser=False)
+    completedservice = AddService.objects.filter(user=request.user, orderstatus=2, isDeleteByUser=False)
 
     return render(request, 'mypublish.html', context={
         'publishedneeds':publishedneeds,
@@ -114,7 +114,8 @@ def deleteneeds(request):
 
     needsid = request.GET.get('needsid')
     needs = AddNeeds.objects.get(id=needsid)
-    needs.delete()
+    needs.isDeleteByUser = True
+    needs.save()
     return redirect(reverse('mypublish'))
 
 def editneeds(request):
@@ -154,7 +155,8 @@ def deleteservice(request):
 
     serviceid = request.GET.get('serviceid')
     service = AddService.objects.get(id=serviceid)
-    service.delete()
+    service.isDeleteByUser = True
+    service.save()
     return redirect(reverse('mypublish'))
 
 def editservice(request):
@@ -187,4 +189,39 @@ def editservice_handler(request):
     service.save()
     return redirect(reverse('mypublish'))
 
+def myorder(request):
+    placedneeds = AddNeeds.objects.filter(orderuser=request.user, orderstatus=3, isDeleteByOrderUser=False)
+    payedneeds = AddNeeds.objects.filter(orderuser=request.user, orderstatus=1, isDeleteByOrderUser=False)
+    completedneeds = AddNeeds.objects.filter(orderuser=request.user, orderstatus=2, isDeleteByOrderUser=False)
 
+    placedservice = AddService.objects.filter(orderuser=request.user, orderstatus=3, isDeleteByOrderUser=False)
+    payedservice = AddService.objects.filter(orderuser=request.user, orderstatus=1, isDeleteByOrderUser=False)
+    completedservice = AddService.objects.filter(orderuser=request.user, orderstatus=2, isDeleteByOrderUser=False)
+
+    return render(request, 'myorder.html', context={
+        'placedneeds': placedneeds,
+        'payedneeds': payedneeds,
+        'completedneeds': completedneeds,
+
+        'placedservice': placedservice,
+        'payedservice': payedservice,
+        'completedservice': completedservice,
+    })
+
+def orderuserdeleteneeds(request):
+    print('Are you sure?')
+
+    needsid = request.GET.get('needsid')
+    needs = AddNeeds.objects.get(id=needsid)
+    needs.isDeleteByOrderUser = True
+    needs.save()
+    return redirect(reverse('myorder'))
+
+def orderuserdeleteservice(request):
+    print('Are you sure?')
+
+    serviceid = request.GET.get('serviceid')
+    service = AddService.objects.get(id=serviceid)
+    service.isDeleteByOrderUser = True
+    service.save()
+    return redirect(reverse('myorder'))
