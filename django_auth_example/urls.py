@@ -41,6 +41,13 @@ urlpatterns = [
     url(r'^myorder$', views.myorder, name='myorder'),
     url(r'^orderuserdeleteneeds$', views.orderuserdeleteneeds, name='orderuserdeleteneeds'),
     url(r'^orderuserdeleteservice$', views.orderuserdeleteservice, name='orderuserdeleteservice'),
+    url(r'^message$', views.message, name='message'),
+    url(r'^message_handler$', views.message_handler, name='message_handler'),
+    url(r'^placeorder$', views.placeorder, name='placeorder'),
+    url(r'^inbox$', views.inbox, name='inbox'),
+    url(r'^outbox$', views.outbox, name='outbox'),
+    url(r'^replymessage$', views.replymessage, name='replymessage'),
+    url(r'^replymessage_handler$', views.replymessage_handler, name='replymessage_handler'),
 
     # url(r'users/', views.index, name='index'),
 ]+ static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)

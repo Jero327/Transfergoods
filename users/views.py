@@ -2,15 +2,17 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 
-from .forms import RegisterForm, AddServiceForm, AddNeedsForm
+from .forms import RegisterForm, AddServiceForm, AddNeedsForm, MessageForm, replyMessageForm
 
-from users.models import AddNeeds, AddService
+from users.models import AddNeeds, AddService, Message
 
 from django.contrib import messages
 
 from django.urls import reverse
 
 from datetime import datetime
+
+from django.db.models import Count
 
 def register(request):
     redirect_to = request.POST.get('next', request.GET.get('next', ''))
@@ -225,3 +227,88 @@ def orderuserdeleteservice(request):
     service.isDeleteByOrderUser = True
     service.save()
     return redirect(reverse('myorder'))
+
+def message(request):
+    receiver = request.GET.get('receiver')
+    message_saved = Message.objects.filter(sender=request.user, receiver=receiver)
+    form = MessageForm()
+    return render(request, 'message.html', context={'form': form, 'message_saved': message_saved, 'receiver':receiver})
+
+def message_handler(request):
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+
+        if form.is_valid():
+            receiver = request.GET.get('receiver')
+
+            instance = form.save(commit=False)
+
+            sender = request.user
+            instance.sender = sender
+
+            created_at = datetime.now()
+            instance.created_at = created_at
+
+            instance.author = sender
+
+            instance.save()
+            # messages.success(request, 'Message sent!', extra_tags='alert')
+            return redirect(reverse('message'))
+
+def replymessage(request):
+    sender = request.GET.get('sender')
+    message_saved = Message.objects.filter(sender=sender, receiver=request.user)
+    form = replyMessageForm()
+    return render(request, 'replymessage.html', context={'form': form, 'message_saved': message_saved, 'sender':sender})
+
+def replymessage_handler(request):
+    if request.method == 'POST':
+        form = replyMessageForm(request.POST)
+
+        if form.is_valid():
+            sender = request.GET.get('sender')
+
+            instance = form.save(commit=False)
+
+            receiver = request.user
+            instance.receiver = receiver
+
+            created_at = datetime.now()
+            instance.created_at = created_at
+
+            instance.author = receiver
+
+            instance.save()
+            # messages.success(request, 'Message sent!', extra_tags='alert')
+            return redirect(reverse('replymessage'))
+
+def inbox(request):
+    # inboxmessage = Message.objects.filter(receiver=request.user).values('sender').annotate(qty=Count('sender'))
+    # lastinboxmessage = Message.objects.filter(receiver=request.user).reverse()[0]
+
+    inboxmessage = Message.objects.filter(receiver=request.user)\
+        .order_by('sender', '-created_at').distinct('sender')
+
+    # inboxmessage = Message.objects.filter(receiver=request.user).raw("""\
+    #     SELECT * FROM
+    #     (
+    #         SELECT sender, msg_content, created_at
+    #         FROM Message
+    #         ORDER BY created_at DESC
+    #     ) t
+    #     GROUP BY t.sender
+    # """)
+
+    return render(request, 'inbox.html', context={'inboxmessage':inboxmessage})
+
+def outbox(request):
+    # outboxmessage = Message.objects.filter(sender=request.user).values('receiver').annotate(qty=Count('receiver'))
+    outboxmessage = Message.objects.filter(sender=request.user) \
+        .order_by('receiver', '-created_at').distinct('receiver')
+
+    return render(request, 'outbox.html', context={'outboxmessage':outboxmessage})
+
+
+def placeorder(request):
+
+    return render(request, 'placeorder.html')

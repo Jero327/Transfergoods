@@ -31,6 +31,7 @@
             <td>image</td>
             <td>Modify</td>
             <td>Delete</td>
+            <td>Send message</td>
         </tr>
         {% for placedneeds in placedneeds %}
         <tr>
@@ -52,6 +53,11 @@
             <td>
                 <a>
                     Forbidden
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'message' %}?receiver={{ placedneeds.user }}">
+                    Send message
                 </a>
             </td>
         </tr>
@@ -78,6 +84,11 @@
                     Forbidden
                 </a>
             </td>
+            <td>
+                <a href="{% url 'message' %}?receiver={{ payedneeds.user }}">
+                    Send message
+                </a>
+            </td>
         </tr>
         {% endfor %}
         {% for completedneeds in completedneeds %}
@@ -102,6 +113,11 @@
                     Delete
                 </a>
             </td>
+            <td>
+                <a href="{% url 'message' %}?receiver={{ completedneeds.user }}">
+                    Send message
+                </a>
+            </td>
         </tr>
         {% endfor %}
     </table>
@@ -120,6 +136,7 @@
             <td>image</td>
             <td>Modify</td>
             <td>Delete</td>
+            <td>Send message</td>
         </tr>
         {% for placedservice in placedservice %}
         <tr>
@@ -140,6 +157,11 @@
             <td>
                 <a>
                     Forbidden
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'message' %}?receiver={{ placedservice.user }}">
+                    Send message
                 </a>
             </td>
         </tr>
@@ -165,6 +187,11 @@
                     Forbidden
                 </a>
             </td>
+            <td>
+                <a href="{% url 'message' %}?receiver={{ payedservice.user }}">
+                    Send message
+                </a>
+            </td>
         </tr>
         {% endfor %}
         {% for completedservice in completedservice %}
@@ -186,6 +213,11 @@
             <td>
                 <a href="{% url 'orderuserdeleteservice' %}?serviceid={{ completedservice.id }}">
                     Delete
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'message' %}?receiver={{ completedservice.user }}">
+                    Send message
                 </a>
             </td>
         </tr>

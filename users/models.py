@@ -51,5 +51,12 @@ class AddNeeds(models.Model):
     def __str__(self):
         return "AddNeeds(user=%s)" % self.user
 
-    # def __str__(self):
-    #     return self.title
+class Message(models.Model):
+    sender = models.CharField(max_length=100, null=False)
+    receiver = models.CharField(max_length=100, null=False)
+    msg_content = models.CharField(max_length=100, null=False)
+    created_at = models.DateTimeField()
+    author = models.CharField(max_length=100, null=False)
+
+    class Meta:
+        ordering = ['created_at']

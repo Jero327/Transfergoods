@@ -31,6 +31,7 @@
             <td>image</td>
             <td>Modify</td>
             <td>Delete</td>
+            <td>Send message</td>
         </tr>
         {% for publishedneeds in publishedneeds %}
         <tr>
@@ -52,6 +53,11 @@
             <td>
                 <a href="{% url 'deleteneeds' %}?needsid={{ publishedneeds.id }}">
                     Delete
+                </a>
+            </td>
+            <td>
+                <a>
+                    Forbidden
                 </a>
             </td>
         </tr>
@@ -78,6 +84,11 @@
                     Forbidden
                 </a>
             </td>
+            <td>
+                <a href="{% url 'replymessage' %}?sender={{ placedneeds.orderuser }}">
+                    Send message
+                </a>
+            </td>
         </tr>
         {% endfor %}
         {% for payedneeds in payedneeds %}
@@ -100,6 +111,11 @@
             <td>
                 <a>
                     Forbidden
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'replymessage' %}?sender={{ payedneeds.orderuser }}">
+                    Send message
                 </a>
             </td>
         </tr>
@@ -126,6 +142,11 @@
                     Delete
                 </a>
             </td>
+            <td>
+                <a href="{% url 'replymessage' %}?sender={{ completedneeds.orderuser }}">
+                    Send message
+                </a>
+            </td>
         </tr>
         {% endfor %}
     </table>
@@ -144,6 +165,7 @@
             <td>image</td>
             <td>Modify</td>
             <td>Delete</td>
+            <td>Send message</td>
         </tr>
         {% for publishedservice in publishedservice %}
         <tr>
@@ -164,6 +186,11 @@
             <td>
                 <a href="{% url 'deleteservice' %}?serviceid={{ publishedservice.id }}">
                     Delete
+                </a>
+            </td>
+            <td>
+                <a>
+                    Forbidden
                 </a>
             </td>
         </tr>
@@ -189,6 +216,11 @@
                     Forbidden
                 </a>
             </td>
+            <td>
+                <a href="{% url 'replymessage' %}?sender={{ placedservice.orderuser }}">
+                    Send message
+                </a>
+            </td>
         </tr>
         {% endfor %}
         {% for payedservice in payedservice %}
@@ -212,6 +244,11 @@
                     Forbidden
                 </a>
             </td>
+            <td>
+                <a href="{% url 'replymessage' %}?sender={{ payedservice.orderuser }}">
+                    Send message
+                </a>
+            </td>
         </tr>
         {% endfor %}
         {% for completedservice in completedservice %}
@@ -233,6 +270,11 @@
             <td>
                 <a href="{% url 'deleteservice' %}?serviceid={{ completedservice.id }}">
                     Delete
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'replymessage' %}?sender={{ completedservice.orderuser }}">
+                    Send message
                 </a>
             </td>
         </tr>

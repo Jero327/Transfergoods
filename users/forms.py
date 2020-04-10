@@ -3,7 +3,7 @@ from .models import User
 from django import forms
 from django.forms import ModelForm
 import datetime
-from .models import AddNeeds, AddService
+from .models import AddNeeds, AddService, Message
 from PIL import Image
 from io import StringIO
 
@@ -68,15 +68,37 @@ class AddNeedsForm(forms.ModelForm):
             needs.save()
         return needs
 
-    # def clean(self):
-    #     # needs = AddNeeds()
-    #     resize_image = self.cleaned_data.get('image')
-    #     image_file = StringIO(resize_image.read())
-    #     image = Image.open(image_file)
-    #
-    #     image = image.resize((100, 100), Image.ANTIALIAS)
-    #     image_file = StringIO()
-    #     image.save(image_file, 'JPEG', quality=90)
-    #
-    #     self.cleaned_data['image'].file = image_file
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = [
+            'msg_content',
+            'receiver',
+        ]
+        widgets = {'receiver': forms.HiddenInput()}
+    def save(self, commit=True):
+        message = Message()
+        message.msg_content = self.cleaned_data['msg_content']
+        message.receiver = self.cleaned_data['receiver']
+
+        if commit:
+            message.save()
+        return message
+
+class replyMessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = [
+            'msg_content',
+            'sender',
+        ]
+        widgets = {'sender': forms.HiddenInput()}
+    def save(self, commit=True):
+        message = Message()
+        message.msg_content = self.cleaned_data['msg_content']
+        message.sender = self.cleaned_data['sender']
+
+        if commit:
+            message.save()
+        return message
 
