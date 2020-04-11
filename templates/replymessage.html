@@ -34,7 +34,7 @@
     {% endfor %}
     </table>
 
-    <form class="form" action="{% url 'replymessage_handler' %}?sender={{ sender }}" method="post" enctype="multipart/form-data">
+    <form class="form" action="{% url 'replymessage_handler' %}?sender=/replymessage?sender={{ sender }}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <input type='hidden' name="sender" value="{{ sender }}" />
         {{ form.msg_content }}

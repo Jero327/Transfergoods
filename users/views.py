@@ -239,7 +239,7 @@ def message_handler(request):
         form = MessageForm(request.POST)
 
         if form.is_valid():
-            receiver = request.GET.get('receiver')
+            redirect_to = request.GET.get('receiver')
 
             instance = form.save(commit=False)
 
@@ -253,7 +253,7 @@ def message_handler(request):
 
             instance.save()
             # messages.success(request, 'Message sent!', extra_tags='alert')
-            return redirect(reverse('message'))
+            return redirect(redirect_to)
 
 def replymessage(request):
     sender = request.GET.get('sender')
@@ -266,7 +266,7 @@ def replymessage_handler(request):
         form = replyMessageForm(request.POST)
 
         if form.is_valid():
-            sender = request.GET.get('sender')
+            redirect_to = request.GET.get('sender')
 
             instance = form.save(commit=False)
 
@@ -280,7 +280,7 @@ def replymessage_handler(request):
 
             instance.save()
             # messages.success(request, 'Message sent!', extra_tags='alert')
-            return redirect(reverse('replymessage'))
+            return redirect(redirect_to)
 
 def inbox(request):
     # inboxmessage = Message.objects.filter(receiver=request.user).values('sender').annotate(qty=Count('sender'))

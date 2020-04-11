@@ -38,7 +38,7 @@
     {% endfor %}
     </table>
 
-    <form class="form" action="{% url 'message_handler' %}?receiver={{ receiver }}" method="post" enctype="multipart/form-data">
+    <form class="form" action="{% url 'message_handler' %}?receiver=/message?receiver={{ receiver }}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <input type='hidden' name="receiver" value="{{ receiver }}" />
         {{ form.msg_content }}
