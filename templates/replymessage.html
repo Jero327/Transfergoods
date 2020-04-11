@@ -36,7 +36,7 @@
 
     <form class="form" action="{% url 'replymessage_handler' %}?sender=/replymessage?sender={{ sender }}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type='hidden' name="sender" value="{{ sender }}" />
+        <input type='hidden' name="sender" value="{{ sender_id }}" />
         {{ form.msg_content }}
         <button type="submit" class="btn btn-primary btn-block">Send</button>
     </form>

@@ -1,9 +1,8 @@
 from django.contrib.auth.forms import UserCreationForm
-from .models import User
 from django import forms
 from django.forms import ModelForm
 import datetime
-from .models import AddNeeds, AddService, Message
+from .models import *
 from PIL import Image
 from io import StringIO
 
@@ -15,7 +14,7 @@ class RegisterForm(UserCreationForm):
 class AddServiceForm(forms.ModelForm):
 
     class Meta:
-        model = AddService
+        model = Service
         fields = [
             'image',
             'start_city',
@@ -27,7 +26,7 @@ class AddServiceForm(forms.ModelForm):
         ]
 
     def save(self, commit=True):
-        service = AddService()
+        service = Service()
         service.image = self.cleaned_data['image']
         service.start_city = self.cleaned_data['start_city']
         service.end_city = self.cleaned_data['end_city']
@@ -42,7 +41,7 @@ class AddServiceForm(forms.ModelForm):
 class AddNeedsForm(forms.ModelForm):
 
     class Meta:
-        model = AddNeeds
+        model = Need
         fields = [
             'image',
             'start_city',
@@ -54,7 +53,7 @@ class AddNeedsForm(forms.ModelForm):
             'message',
         ]
     def save(self, commit=True):
-        needs = AddNeeds()
+        needs = Need()
         needs.image = self.cleaned_data['image']
         needs.start_city = self.cleaned_data['start_city']
         needs.end_city = self.cleaned_data['end_city']

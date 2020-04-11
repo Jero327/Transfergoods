@@ -2,9 +2,9 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 
-from .forms import RegisterForm, AddServiceForm, AddNeedsForm, MessageForm, replyMessageForm
+from .forms import *
 
-from users.models import AddNeeds, AddService, Message
+from users.models import *
 
 from django.contrib import messages
 
@@ -34,12 +34,12 @@ def register(request):
 
 
 def index(request):
-    allneeds = AddNeeds.objects.filter(orderstatus=0)
+    allneeds = Need.objects.filter(orderstatus=1, isDeleteByUser=False)
 
     return render(request, 'index.html', context={'allneeds': allneeds})
 
 def findservice(request):
-    allservice = AddService.objects.filter(orderstatus=0)
+    allservice = Service.objects.filter(orderstatus=1, isDeleteByUser=False)
 
     return render(request, 'findservice.html', context={'allservice': allservice})
 
@@ -84,20 +84,20 @@ def addneedsdone(request):
     return render(request, 'addneedsdone.html')
 
 # def displayneeds(request):
-#     allneeds = AddNeeds.objects.all()
+#     allneeds = Need.objects.all()
 #
 #     return render(request, 'index.html', context={'allneeds': allneeds})
 
 def mypublish(request):
-    publishedneeds = AddNeeds.objects.filter(user=request.user, orderstatus=0, isDeleteByUser=False)
-    placedneeds = AddNeeds.objects.filter(user=request.user, orderstatus=3, isDeleteByUser=False)
-    payedneeds = AddNeeds.objects.filter(user=request.user, orderstatus=1, isDeleteByUser=False)
-    completedneeds = AddNeeds.objects.filter(user=request.user, orderstatus=2, isDeleteByUser=False)
+    publishedneeds = Need.objects.filter(user=request.user, orderstatus=1, isDeleteByUser=False)
+    placedneeds = Need.objects.filter(user=request.user, orderstatus=4, isDeleteByUser=False)
+    payedneeds = Need.objects.filter(user=request.user, orderstatus=2, isDeleteByUser=False)
+    completedneeds = Need.objects.filter(user=request.user, orderstatus=3, isDeleteByUser=False)
 
-    publishedservice = AddService.objects.filter(user=request.user, orderstatus=0, isDeleteByUser=False)
-    placedservice = AddService.objects.filter(user=request.user, orderstatus=3, isDeleteByUser=False)
-    payedservice = AddService.objects.filter(user=request.user, orderstatus=1, isDeleteByUser=False)
-    completedservice = AddService.objects.filter(user=request.user, orderstatus=2, isDeleteByUser=False)
+    publishedservice = Service.objects.filter(user=request.user, orderstatus=1, isDeleteByUser=False)
+    placedservice = Service.objects.filter(user=request.user, orderstatus=4, isDeleteByUser=False)
+    payedservice = Service.objects.filter(user=request.user, orderstatus=2, isDeleteByUser=False)
+    completedservice = Service.objects.filter(user=request.user, orderstatus=3, isDeleteByUser=False)
 
     return render(request, 'mypublish.html', context={
         'publishedneeds':publishedneeds,
@@ -115,14 +115,14 @@ def deleteneeds(request):
     print('Are you sure?')
 
     needsid = request.GET.get('needsid')
-    needs = AddNeeds.objects.get(id=needsid)
+    needs = Need.objects.get(id=needsid)
     needs.isDeleteByUser = True
     needs.save()
     return redirect(reverse('mypublish'))
 
 def editneeds(request):
     needsid = request.GET.get('needsid')
-    needs = AddNeeds.objects.get(id=needsid)
+    needs = Need.objects.get(id=needsid)
 
     return render(request, 'editneeds.html', {'needs':needs})
 
@@ -138,7 +138,7 @@ def editneeds_handler(request):
     offer_price = request.POST.get('offer_price')
     message = request.POST.get('message')
 
-    needs = AddNeeds.objects.get(id=needsid)
+    needs = Need.objects.get(id=needsid)
 
     needs.image = image
     needs.start_city = start_city
@@ -156,14 +156,14 @@ def deleteservice(request):
     print('Are you sure?')
 
     serviceid = request.GET.get('serviceid')
-    service = AddService.objects.get(id=serviceid)
+    service = Service.objects.get(id=serviceid)
     service.isDeleteByUser = True
     service.save()
     return redirect(reverse('mypublish'))
 
 def editservice(request):
     serviceid = request.GET.get('serviceid')
-    service = AddService.objects.get(id=serviceid)
+    service = Service.objects.get(id=serviceid)
 
     return render(request, 'editservice.html', {'service':service})
 
@@ -178,7 +178,7 @@ def editservice_handler(request):
     ask_price = request.POST.get('ask_price')
     message = request.POST.get('message')
 
-    service = AddService.objects.get(id=serviceid)
+    service = Service.objects.get(id=serviceid)
 
     service.image = image
     service.start_city = start_city
@@ -192,13 +192,13 @@ def editservice_handler(request):
     return redirect(reverse('mypublish'))
 
 def myorder(request):
-    placedneeds = AddNeeds.objects.filter(orderuser=request.user, orderstatus=3, isDeleteByOrderUser=False)
-    payedneeds = AddNeeds.objects.filter(orderuser=request.user, orderstatus=1, isDeleteByOrderUser=False)
-    completedneeds = AddNeeds.objects.filter(orderuser=request.user, orderstatus=2, isDeleteByOrderUser=False)
+    placedneeds = Need.objects.filter(orderuser=request.user, orderstatus=4, isDeleteByOrderUser=False)
+    payedneeds = Need.objects.filter(orderuser=request.user, orderstatus=2, isDeleteByOrderUser=False)
+    completedneeds = Need.objects.filter(orderuser=request.user, orderstatus=3, isDeleteByOrderUser=False)
 
-    placedservice = AddService.objects.filter(orderuser=request.user, orderstatus=3, isDeleteByOrderUser=False)
-    payedservice = AddService.objects.filter(orderuser=request.user, orderstatus=1, isDeleteByOrderUser=False)
-    completedservice = AddService.objects.filter(orderuser=request.user, orderstatus=2, isDeleteByOrderUser=False)
+    placedservice = Service.objects.filter(orderuser=request.user, orderstatus=4, isDeleteByOrderUser=False)
+    payedservice = Service.objects.filter(orderuser=request.user, orderstatus=2, isDeleteByOrderUser=False)
+    completedservice = Service.objects.filter(orderuser=request.user, orderstatus=3, isDeleteByOrderUser=False)
 
     return render(request, 'myorder.html', context={
         'placedneeds': placedneeds,
@@ -214,7 +214,7 @@ def orderuserdeleteneeds(request):
     print('Are you sure?')
 
     needsid = request.GET.get('needsid')
-    needs = AddNeeds.objects.get(id=needsid)
+    needs = Need.objects.get(id=needsid)
     needs.isDeleteByOrderUser = True
     needs.save()
     return redirect(reverse('myorder'))
@@ -223,16 +223,18 @@ def orderuserdeleteservice(request):
     print('Are you sure?')
 
     serviceid = request.GET.get('serviceid')
-    service = AddService.objects.get(id=serviceid)
+    service = Service.objects.get(id=serviceid)
     service.isDeleteByOrderUser = True
     service.save()
     return redirect(reverse('myorder'))
 
 def message(request):
     receiver = request.GET.get('receiver')
-    message_saved = Message.objects.filter(sender=request.user, receiver=receiver)
+    sender_id = User.objects.get(username=request.user).id
+    receiver_id = User.objects.get(username=receiver).id
+    message_saved = Message.objects.filter(sender=sender_id, receiver=receiver_id)
     form = MessageForm()
-    return render(request, 'message.html', context={'form': form, 'message_saved': message_saved, 'receiver':receiver})
+    return render(request, 'message.html', context={'form': form, 'message_saved': message_saved, 'receiver':receiver, 'receiver_id':receiver_id})
 
 def message_handler(request):
     if request.method == 'POST':
@@ -243,13 +245,14 @@ def message_handler(request):
 
             instance = form.save(commit=False)
 
-            sender = request.user
-            instance.sender = sender
+            # sender = request.user
+            sender_id = User.objects.get(username=request.user)
+            instance.sender = sender_id
 
             created_at = datetime.now()
             instance.created_at = created_at
 
-            instance.author = sender
+            instance.author = sender_id
 
             instance.save()
             # messages.success(request, 'Message sent!', extra_tags='alert')
@@ -257,9 +260,11 @@ def message_handler(request):
 
 def replymessage(request):
     sender = request.GET.get('sender')
-    message_saved = Message.objects.filter(sender=sender, receiver=request.user)
+    sender_id = User.objects.get(username=sender).id
+    receiver_id = User.objects.get(username=request.user).id
+    message_saved = Message.objects.filter(sender=sender_id, receiver=receiver_id)
     form = replyMessageForm()
-    return render(request, 'replymessage.html', context={'form': form, 'message_saved': message_saved, 'sender':sender})
+    return render(request, 'replymessage.html', context={'form': form, 'message_saved': message_saved, 'sender':sender, 'sender_id':sender_id})
 
 def replymessage_handler(request):
     if request.method == 'POST':
@@ -270,13 +275,14 @@ def replymessage_handler(request):
 
             instance = form.save(commit=False)
 
-            receiver = request.user
-            instance.receiver = receiver
+            # receiver = request.user
+            receiver_id = User.objects.get(username=request.user)
+            instance.receiver = receiver_id
 
             created_at = datetime.now()
             instance.created_at = created_at
 
-            instance.author = receiver
+            instance.author = receiver_id
 
             instance.save()
             # messages.success(request, 'Message sent!', extra_tags='alert')
