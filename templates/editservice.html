@@ -16,58 +16,18 @@
 </head>
 <body>
 {% if user.is_authenticated %}
-    <form action="{% url 'editservice_handler' %}" method="post" enctype="multipart/form-data">
+    <form class="form" action="{% url 'editservice_handler' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="hidden" value="{{ service.id }}" name="serviceid"/>
-            <table>
-                <tr>
-                    <td>image</td>
-                    <td>
-                        <input name="image" value="{{ service.image }}"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>start_city</td>
-                    <td>
-                        <input name="start_city" value="{{ service.start_city }}"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>end_city</td>
-                    <td>
-                        <input name="end_city" value="{{ service.end_city }}"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>start_date</td>
-                    <td>
-                        <input name="start_date"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>end_date</td>
-                    <td>
-                        <input name="end_date"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>ask_price</td>
-                    <td>
-                        <input name="ask_price" value="{{ service.ask_price }}"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>message</td>
-                    <td>
-                        <input name="message" value="{{ service.message }}"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <button type="submit" class="btn btn-primary btn-block">submit</button>
-                    </td>
-                </tr>
-            </table>
+        {% for field in form %}
+            {{ field.label_tag }}
+            {{ field }}
+            {{ field.errors }}
+            {% if field.help_text %}
+                <p class="help text-small text-muted">{{ field.help_text|safe }}</p>
+            {% endif %}
+        {% endfor %}
+        <button type="submit" class="btn btn-primary btn-block">Publish</button>
     </form>
 {% else %}
 You haven't log in, please login.

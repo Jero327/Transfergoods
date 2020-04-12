@@ -25,18 +25,16 @@ class AddServiceForm(forms.ModelForm):
             'message',
         ]
 
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super(AddServiceForm, self).__init__(*args, **kwargs)
+
     def save(self, commit=True):
-        service = Service()
-        service.image = self.cleaned_data['image']
-        service.start_city = self.cleaned_data['start_city']
-        service.end_city = self.cleaned_data['end_city']
-        service.start_date = self.cleaned_data['start_date']
-        service.end_date = self.cleaned_data['end_date']
-        service.ask_price = self.cleaned_data['ask_price']
-        service.message = self.cleaned_data['message']
+        instance = super(AddServiceForm, self).save(commit=False)
+
         if commit:
-            service.save()
-        return service
+            instance.save()
+        return instance
 
 class AddNeedsForm(forms.ModelForm):
 
@@ -52,20 +50,17 @@ class AddNeedsForm(forms.ModelForm):
             'offer_price',
             'message',
         ]
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super(AddNeedsForm, self).__init__(*args, **kwargs)
+
     def save(self, commit=True):
-        needs = Need()
-        needs.image = self.cleaned_data['image']
-        needs.start_city = self.cleaned_data['start_city']
-        needs.end_city = self.cleaned_data['end_city']
-        needs.start_date = self.cleaned_data['start_date']
-        needs.end_date = self.cleaned_data['end_date']
-        needs.good_name = self.cleaned_data['good_name']
-        needs.offer_price = self.cleaned_data['offer_price']
-        needs.message = self.cleaned_data['message']
+        instance = super(AddNeedsForm, self).save(commit=False)
 
         if commit:
-            needs.save()
-        return needs
+            instance.save()
+        return instance
 
 class MessageForm(forms.ModelForm):
     class Meta:

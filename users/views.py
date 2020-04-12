@@ -124,33 +124,32 @@ def editneeds(request):
     needsid = request.GET.get('needsid')
     needs = Need.objects.get(id=needsid)
 
-    return render(request, 'editneeds.html', {'needs':needs})
+    data = {
+        "image": needs.image,
+        "start_city": needs.start_city,
+        "end_city": needs.end_city,
+        "start_date": needs.start_date,
+        "end_date": needs.end_date,
+        "good_name": needs.good_name,
+        "offer_price": needs.offer_price,
+        "message": needs.message,
+             }
+    form = AddNeedsForm(initial=data)
+
+    return render(request, 'editneeds.html', {'form':form, 'needs':needs})
 
 def editneeds_handler(request):
     needsid = request.POST.get('needsid')
-
-    image = request.POST.get('image')
-    start_city = request.POST.get('start_city')
-    end_city = request.POST.get('end_city')
-    start_date = request.POST.get('start_date')
-    end_date = request.POST.get('end_date')
-    good_name = request.POST.get('good_name')
-    offer_price = request.POST.get('offer_price')
-    message = request.POST.get('message')
-
     needs = Need.objects.get(id=needsid)
 
-    needs.image = image
-    needs.start_city = start_city
-    needs.end_city = end_city
-    needs.start_date =  datetime.strptime(start_date, '%Y-%m-%d')
-    needs.end_date =  datetime.strptime(end_date, '%Y-%m-%d')
-    needs.good_name = good_name
-    needs.offer_price = offer_price
-    needs.message = message
+    form = AddNeedsForm(request.POST or None, request.FILES or None, instance=needs)
 
-    needs.save()
-    return redirect(reverse('mypublish'))
+    if form.is_valid():
+        instance = form.save(commit=False)
+        username = request.user
+        instance.user = username
+        instance.save()
+        return redirect(reverse('mypublish'))
 
 def deleteservice(request):
     print('Are you sure?')
@@ -165,31 +164,31 @@ def editservice(request):
     serviceid = request.GET.get('serviceid')
     service = Service.objects.get(id=serviceid)
 
-    return render(request, 'editservice.html', {'service':service})
+    data = {
+        "image": service.image,
+        "start_city": service.start_city,
+        "end_city": service.end_city,
+        "start_date": service.start_date,
+        "end_date": service.end_date,
+        "ask_price": service.ask_price,
+        "message": service.message,
+    }
+    form = AddServiceForm(initial=data)
+
+    return render(request, 'editservice.html', {'form':form, 'service':service})
 
 def editservice_handler(request):
     serviceid = request.POST.get('serviceid')
-
-    image = request.POST.get('image')
-    start_city = request.POST.get('start_city')
-    end_city = request.POST.get('end_city')
-    start_date = request.POST.get('start_date')
-    end_date = request.POST.get('end_date')
-    ask_price = request.POST.get('ask_price')
-    message = request.POST.get('message')
-
     service = Service.objects.get(id=serviceid)
 
-    service.image = image
-    service.start_city = start_city
-    service.end_city = end_city
-    service.start_date =  datetime.strptime(start_date, '%Y-%m-%d')
-    service.end_date =  datetime.strptime(end_date, '%Y-%m-%d')
-    service.ask_price = ask_price
-    service.message = message
+    form = AddServiceForm(request.POST or None, request.FILES or None, instance=service)
 
-    service.save()
-    return redirect(reverse('mypublish'))
+    if form.is_valid():
+        instance = form.save(commit=False)
+        username = request.user
+        instance.user = username
+        instance.save()
+        return redirect(reverse('mypublish'))
 
 def myorder(request):
     placedneeds = Need.objects.filter(orderuser=request.user, orderstatus=4, isDeleteByOrderUser=False)
