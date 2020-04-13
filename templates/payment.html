@@ -18,7 +18,7 @@
 <body>
     <div class="content">
         {% if user.is_authenticated %}
-            <h1>Place order</h1>
+            <h1>Payment</h1>
             <br/><br/>
             <a href="#">
                 <img class="img-fluid" src="{{ MEDIA_URL }}{{ service.image }}" height="233" width="350">
@@ -28,8 +28,14 @@
             <br/>
             Ask price: ${{ service.ask_price }}
             <br/>
-            <a href="{% url 'placeorder_handler' %}?service_id={{ service.id }}">
-                Confirm
+            <p>
+                Please pay to ANZ: 888 8888 8888 00
+            </p>
+            <p>
+                After finishing, please click:
+            </p>
+            <a href="{% url 'payment_handler' %}?service_id={{ service.id }}">
+                Complete payment
             </a>
 
         {% else %}

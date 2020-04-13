@@ -29,9 +29,8 @@
             <td>order_status</td>
             <td>user</td>
             <td>image</td>
-            <td>Modify</td>
-            <td>Delete</td>
             <td>Send message</td>
+            <td>Delete</td>
         </tr>
         {% for placedneeds in placedneeds %}
         <tr>
@@ -44,20 +43,15 @@
             <td>{{ placedneeds.message }}</td>
             <td>placed</td>
             <td>{{ placedneeds.user }}</td>
-            <td>{{ placedneeds.image }}</td>
+            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ placedneeds.image }}" height="23" width="35"></td>
             <td>
-                <a>
-                    Forbidden
-                </a>
-            </td>
-            <td>
-                <a>
-                    Forbidden
-                </a>
-            </td>
-            <td>
-                <a href="{% url 'message' %}?receiver={{ placedneeds.user }}">
+                <a href="{% url 'message' %}?service_id={{ placedneeds.id }}">
                     Send message
+                </a>
+            </td>
+            <td>
+                <a>
+                    Forbidden
                 </a>
             </td>
         </tr>
@@ -73,20 +67,15 @@
             <td>{{ payedneeds.message }}</td>
             <td>payed</td>
             <td>{{ payedneeds.user }}</td>
-            <td>{{ payedneeds.image }}</td>
+            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ payedneeds.image }}" height="23" width="35"></td>
             <td>
-                <a>
-                    Forbidden
-                </a>
-            </td>
-            <td>
-                <a>
-                    Forbidden
-                </a>
-            </td>
-            <td>
-                <a href="{% url 'message' %}?receiver={{ payedneeds.user }}">
+                <a href="{% url 'message' %}?service_id={{ payedneeds.id }}">
                     Send message
+                </a>
+            </td>
+            <td>
+                <a>
+                    Forbidden
                 </a>
             </td>
         </tr>
@@ -102,20 +91,15 @@
             <td>{{ completedneeds.message }}</td>
             <td>completed</td>
             <td>{{ completedneeds.user }}</td>
-            <td>{{ completedneeds.image }}</td>
+            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ completedneeds.image }}" height="23" width="35"></td>
             <td>
-                <a>
-                    Forbidden
+                <a href="{% url 'message' %}?service_id={{ completedneeds.id }}">
+                    Send message
                 </a>
             </td>
             <td>
                 <a href="{% url 'orderuserdeleteneeds' %}?needsid={{ completedneeds.id }}">
                     Delete
-                </a>
-            </td>
-            <td>
-                <a href="{% url 'message' %}?receiver={{ completedneeds.user }}">
-                    Send message
                 </a>
             </td>
         </tr>
@@ -134,9 +118,11 @@
             <td>order_status</td>
             <td>user</td>
             <td>image</td>
-            <td>Modify</td>
-            <td>Delete</td>
             <td>Send message</td>
+            <td>Pay</td>
+            <td>Confirm</td>
+            <td>Delete</td>
+
         </tr>
         {% for placedservice in placedservice %}
         <tr>
@@ -148,20 +134,25 @@
             <td>{{ placedservice.message }}</td>
             <td>placed</td>
             <td>{{ placedservice.user }}</td>
-            <td>{{ placedservice.image }}</td>
+            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ placedservice.image }}" height="23" width="35"></td>
             <td>
-                <a>
-                    Forbidden
-                </a>
-            </td>
-            <td>
-                <a>
-                    Forbidden
-                </a>
-            </td>
-            <td>
-                <a href="{% url 'message' %}?receiver={{ placedservice.user }}">
+                <a href="{% url 'message' %}?service_id={{ placedservice.id }}">
                     Send message
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'payment' %}?service_id={{ placedservice.id }}">
+                    Pay
+                </a>
+            </td>
+            <td>
+                <a>
+                    Forbidden
+                </a>
+            </td>
+            <td>
+                <a>
+                    Forbidden
                 </a>
             </td>
         </tr>
@@ -176,20 +167,25 @@
             <td>{{ payedservice.message }}</td>
             <td>payed</td>
             <td>{{ payedservice.user }}</td>
-            <td>{{ payedservice.image }}</td>
+            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ payedservice.image }}" height="23" width="35"></td>
             <td>
-                <a>
-                    Forbidden
-                </a>
-            </td>
-            <td>
-                <a>
-                    Forbidden
-                </a>
-            </td>
-            <td>
-                <a href="{% url 'message' %}?receiver={{ payedservice.user }}">
+                <a href="{% url 'message' %}?service_id={{ payedservice.id }}">
                     Send message
+                </a>
+            </td>
+            <td>
+                <a>
+                    Forbidden
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'confirm' %}?service_id={{ payedservice.id }}">
+                    Confirm
+                </a>
+            </td>
+            <td>
+                <a>
+                    Forbidden
                 </a>
             </td>
         </tr>
@@ -204,7 +200,17 @@
             <td>{{ completedservice.message }}</td>
             <td>completed</td>
             <td>{{ completedservice.user }}</td>
-            <td>{{ completedservice.image }}</td>
+            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ completedservice.image }}" height="23" width="35"></td>
+            <td>
+                <a href="{% url 'message' %}?service_id={{ completedservice.id }}">
+                    Send message
+                </a>
+            </td>
+            <td>
+                <a>
+                    Forbidden
+                </a>
+            </td>
             <td>
                 <a>
                     Forbidden
@@ -213,11 +219,6 @@
             <td>
                 <a href="{% url 'orderuserdeleteservice' %}?serviceid={{ completedservice.id }}">
                     Delete
-                </a>
-            </td>
-            <td>
-                <a href="{% url 'message' %}?receiver={{ completedservice.user }}">
-                    Send message
                 </a>
             </td>
         </tr>

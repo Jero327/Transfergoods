@@ -124,7 +124,7 @@
                                     <h3 class="text-light name">
                                         {{ service.message }}
                                     </h3>
-                                    <a class="action" href="{% url 'message' %}?receiver={{ service.user }}">
+                                    <a class="action" href="{% url 'message' %}?service_id={{ service.id }}">
                                         <i class="fa fa-arrow-circle-right">
 
                                         </i>

@@ -228,12 +228,14 @@ def orderuserdeleteservice(request):
     return redirect(reverse('myorder'))
 
 def message(request):
-    receiver = request.GET.get('receiver')
+    service_id = request.GET.get('service_id')
+    service = Service.objects.get(id=service_id)
+    receiver = service.user
     sender_id = User.objects.get(username=request.user).id
     receiver_id = User.objects.get(username=receiver).id
     message_saved = Message.objects.filter(sender=sender_id, receiver=receiver_id)
     form = MessageForm()
-    return render(request, 'message.html', context={'form': form, 'message_saved': message_saved, 'receiver':receiver, 'receiver_id':receiver_id})
+    return render(request, 'message.html', context={'form': form, 'message_saved': message_saved, 'receiver':receiver, 'receiver_id':receiver_id, 'service_id':service_id})
 
 def message_handler(request):
     if request.method == 'POST':
@@ -315,5 +317,47 @@ def outbox(request):
 
 
 def placeorder(request):
+    service_id = request.GET.get('service_id')
+    service = Service.objects.get(id=service_id)
 
-    return render(request, 'placeorder.html')
+    return render(request, 'placeorder.html', context={'service':service})
+
+def placeorder_handler(request):
+    # user_id = User.objects.get(username=request.user).id
+
+    service_id = request.GET.get('service_id')
+    service = Service.objects.get(id=service_id)
+    service.orderuser = request.user
+    orderstatus = OrderStatus.objects.get(id=4)
+    service.orderstatus = orderstatus
+    service.save()
+
+    redirect_to = '/payment?service_id=' + service_id
+
+    return redirect(redirect_to)
+
+def payment(request):
+    service_id = request.GET.get('service_id')
+    service = Service.objects.get(id=service_id)
+
+    return  render(request, 'payment.html', context={'service':service})
+
+def payment_handler(request):
+    service_id = request.GET.get('service_id')
+    service = Service.objects.get(id=service_id)
+
+    orderstatus = OrderStatus.objects.get(id=2)
+    service.orderstatus = orderstatus
+    service.save()
+
+    return redirect('myorder')
+
+def confirm(request):
+    service_id = request.GET.get('service_id')
+    service = Service.objects.get(id=service_id)
+
+    orderstatus = OrderStatus.objects.get(id=3)
+    service.orderstatus = orderstatus
+    service.save()
+
+    return redirect('myorder')

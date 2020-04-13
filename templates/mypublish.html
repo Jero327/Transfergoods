@@ -207,8 +207,8 @@
             <td>{{ placedservice.orderuser }}</td>
             <td>{{ placedservice.image }}</td>
             <td>
-                <a>
-                    Forbidden
+                <a href="{% url 'editservice' %}?serviceid={{ placedservice.id }}">
+                    Modify
                 </a>
             </td>
             <td>
