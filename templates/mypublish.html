@@ -30,8 +30,10 @@
             <td>order_user</td>
             <td>image</td>
             <td>Modify</td>
-            <td>Delete</td>
             <td>Send message</td>
+            <td>Pay</td>
+            <td>Confirm</td>
+            <td>Delete</td>
         </tr>
         {% for publishedneeds in publishedneeds %}
         <tr>
@@ -44,20 +46,30 @@
             <td>{{ publishedneeds.message }}</td>
             <td>published</td>
             <td>{{ publishedneeds.orderuser }}</td>
-            <td>{{ publishedneeds.image }}</td>
+            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ publishedneeds.image }}" height="23" width="35"></td>
             <td>
                 <a href="{% url 'editneeds' %}?needsid={{ publishedneeds.id }}">
                     Modify
                 </a>
             </td>
             <td>
-                <a href="{% url 'deleteneeds' %}?needsid={{ publishedneeds.id }}">
-                    Delete
+                <a>
+                    Forbidden
                 </a>
             </td>
             <td>
                 <a>
                     Forbidden
+                </a>
+            </td>
+            <td>
+                <a>
+                    Forbidden
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'deleteneeds' %}?needsid={{ publishedneeds.id }}">
+                    Delete
                 </a>
             </td>
         </tr>
@@ -73,12 +85,7 @@
             <td>{{ placedneeds.message }}</td>
             <td>placed</td>
             <td>{{ placedneeds.orderuser }}</td>
-            <td>{{ placedneeds.image }}</td>
-            <td>
-                <a>
-                    Forbidden
-                </a>
-            </td>
+            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ placedneeds.image }}" height="23" width="35"></td>
             <td>
                 <a>
                     Forbidden
@@ -87,6 +94,21 @@
             <td>
                 <a href="{% url 'replymessage' %}?sender={{ placedneeds.orderuser }}">
                     Send message
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'needspayment' %}?need_id={{ placedneeds.id }}">
+                    Pay
+                </a>
+            </td>
+            <td>
+                <a>
+                    Forbidden
+                </a>
+            </td>
+            <td>
+                <a>
+                    Forbidden
                 </a>
             </td>
         </tr>
@@ -102,12 +124,7 @@
             <td>{{ payedneeds.message }}</td>
             <td>payed</td>
             <td>{{ payedneeds.orderuser }}</td>
-            <td>{{ payedneeds.image }}</td>
-            <td>
-                <a>
-                    Forbidden
-                </a>
-            </td>
+            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ payedneeds.image }}" height="23" width="35"></td>
             <td>
                 <a>
                     Forbidden
@@ -116,6 +133,21 @@
             <td>
                 <a href="{% url 'replymessage' %}?sender={{ payedneeds.orderuser }}">
                     Send message
+                </a>
+            </td>
+            <td>
+                <a>
+                    Forbidden
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'needsconfirm' %}?need_id={{ payedneeds.id }}">
+                    Confirm
+                </a>
+            </td>
+            <td>
+                <a>
+                    Forbidden
                 </a>
             </td>
         </tr>
@@ -131,7 +163,22 @@
             <td>{{ completedneeds.message }}</td>
             <td>completed</td>
             <td>{{ completedneeds.orderuser }}</td>
-            <td>{{ completedneeds.image }}</td>
+            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ completedneeds.image }}" height="23" width="35"></td>
+            <td>
+                <a>
+                    Forbidden
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'replymessage' %}?sender={{ completedneeds.orderuser }}">
+                    Send message
+                </a>
+            </td>
+            <td>
+                <a>
+                    Forbidden
+                </a>
+            </td>
             <td>
                 <a>
                     Forbidden
@@ -140,11 +187,6 @@
             <td>
                 <a href="{% url 'deleteneeds' %}?needsid={{ completedneeds.id }}">
                     Delete
-                </a>
-            </td>
-            <td>
-                <a href="{% url 'replymessage' %}?sender={{ completedneeds.orderuser }}">
-                    Send message
                 </a>
             </td>
         </tr>

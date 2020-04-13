@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Transfergoods</title>
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://unpkg.com/mobi.css/dist/mobi.min.css">
+    <style>
+        .content {
+            max-width: 500px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        {% if user.is_authenticated %}
+            <h1>Payment</h1>
+            <br/><br/>
+            <a href="#">
+                <img class="img-fluid" src="{{ MEDIA_URL }}{{ need.image }}" height="233" width="350">
+            </a>
+            <br/>
+            Message: {{ need.message }}
+            <br/>
+            Ask price: ${{ need.offer_price }}
+            <br/>
+            <p>
+                Please pay to ANZ: 888 8888 8888 00
+            </p>
+            <p>
+                After finishing, please click:
+            </p>
+            <a href="{% url 'needspayment_handler' %}?need_id={{ need.id }}">
+                Complete payment
+            </a>
+
+        {% else %}
+            You haven't log in, please login.
+        {% endif %}
+    </div>
+</body>
+</html>

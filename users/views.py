@@ -259,6 +259,103 @@ def message_handler(request):
             # messages.success(request, 'Message sent!', extra_tags='alert')
             return redirect(redirect_to)
 
+def orderneedmessage(request):
+    need_id = request.GET.get('need_id')
+    need = Need.objects.get(id=need_id)
+    receiver = need.user
+    sender_id = User.objects.get(username=request.user).id
+    receiver_id = User.objects.get(username=receiver).id
+    message_saved = Message.objects.filter(sender=sender_id, receiver=receiver_id)
+    form = MessageForm()
+    return render(request, 'orderneedmessage.html', context={'form': form, 'message_saved': message_saved, 'receiver':receiver, 'receiver_id':receiver_id, 'need_id':need_id})
+
+def orderneedmessage_handler(request):
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+
+        if form.is_valid():
+            redirect_to = request.GET.get('receiver')
+
+            instance = form.save(commit=False)
+
+            # sender = request.user
+            sender_id = User.objects.get(username=request.user)
+            instance.sender = sender_id
+
+            created_at = datetime.now()
+            instance.created_at = created_at
+
+            instance.author = sender_id
+
+            instance.save()
+            # messages.success(request, 'Message sent!', extra_tags='alert')
+            return redirect(redirect_to)
+
+def myorderneedmessage(request):
+    need_id = request.GET.get('need_id')
+    need = Need.objects.get(id=need_id)
+    receiver = need.user
+    sender_id = User.objects.get(username=request.user).id
+    receiver_id = User.objects.get(username=receiver).id
+    message_saved = Message.objects.filter(sender=sender_id, receiver=receiver_id)
+    form = MessageForm()
+    return render(request, 'myorderneedmessage.html', context={'form': form, 'message_saved': message_saved, 'receiver':receiver, 'receiver_id':receiver_id, 'need_id':need_id})
+
+def myorderneedmessage_handler(request):
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+
+        if form.is_valid():
+            redirect_to = request.GET.get('receiver')
+
+            instance = form.save(commit=False)
+
+            # sender = request.user
+            sender_id = User.objects.get(username=request.user)
+            instance.sender = sender_id
+
+            created_at = datetime.now()
+            instance.created_at = created_at
+
+            instance.author = sender_id
+
+            instance.save()
+            # messages.success(request, 'Message sent!', extra_tags='alert')
+            return redirect(redirect_to)
+
+def myorderservicemessage(request):
+    service_id = request.GET.get('service_id')
+    service = Service.objects.get(id=service_id)
+    receiver = service.user
+    sender_id = User.objects.get(username=request.user).id
+    receiver_id = User.objects.get(username=receiver).id
+    message_saved = Message.objects.filter(sender=sender_id, receiver=receiver_id)
+    form = MessageForm()
+    return render(request, 'myorderservicemessage.html', context={'form': form, 'message_saved': message_saved, 'receiver': receiver,
+                                                    'receiver_id': receiver_id, 'service_id': service_id})
+
+def myorderservicemessage_handler(request):
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+
+        if form.is_valid():
+            redirect_to = request.GET.get('receiver')
+
+            instance = form.save(commit=False)
+
+            # sender = request.user
+            sender_id = User.objects.get(username=request.user)
+            instance.sender = sender_id
+
+            created_at = datetime.now()
+            instance.created_at = created_at
+
+            instance.author = sender_id
+
+            instance.save()
+            # messages.success(request, 'Message sent!', extra_tags='alert')
+            return redirect(redirect_to)
+
 def replymessage(request):
     sender = request.GET.get('sender')
     sender_id = User.objects.get(username=sender).id
@@ -336,6 +433,24 @@ def placeorder_handler(request):
 
     return redirect(redirect_to)
 
+def placeneedorder(request):
+    need_id = request.GET.get('need_id')
+    need = Need.objects.get(id=need_id)
+
+    return render(request, 'placeneedorder.html', context={'need':need})
+
+def placeneedorder_handler(request):
+    need_id = request.GET.get('need_id')
+    need = Need.objects.get(id=need_id)
+    need.orderuser = request.user
+    orderstatus = OrderStatus.objects.get(id=4)
+    need.orderstatus = orderstatus
+    need.save()
+
+    redirect_to = 'myorder'
+
+    return redirect(redirect_to)
+
 def payment(request):
     service_id = request.GET.get('service_id')
     service = Service.objects.get(id=service_id)
@@ -361,3 +476,29 @@ def confirm(request):
     service.save()
 
     return redirect('myorder')
+
+def needspayment(request):
+    need_id = request.GET.get('need_id')
+    need = Need.objects.get(id=need_id)
+
+    return  render(request, 'needspayment.html', context={'need':need})
+
+def needspayment_handler(request):
+    need_id = request.GET.get('need_id')
+    need = Need.objects.get(id=need_id)
+
+    orderstatus = OrderStatus.objects.get(id=2)
+    need.orderstatus = orderstatus
+    need.save()
+
+    return redirect('mypublish')
+
+def needsconfirm(request):
+    need_id = request.GET.get('need_id')
+    need = Need.objects.get(id=need_id)
+
+    orderstatus = OrderStatus.objects.get(id=3)
+    need.orderstatus = orderstatus
+    need.save()
+
+    return redirect('mypublish')

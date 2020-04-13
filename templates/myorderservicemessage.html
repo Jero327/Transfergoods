@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Transfergoods</title>
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+{#    <link rel="stylesheet" href="https://unpkg.com/mobi.css/dist/mobi.min.css">#}
+    <style>
+
+    </style>
+</head>
+<body>
+{% if user.is_authenticated %}
+    <h1>This is message page</h1>
+
+    <div class="receiver">
+        You are sending message to: <strong>{{ receiver }}</strong>
+    </div>
+
+    <table border="1">
+    {% for message_saved in message_saved %}
+        <tr>
+            <td colspan="2">{{ message_saved.created_at }}</td>
+        </tr>
+        <tr>
+            <td>{{ message_saved.author }}:</td>
+            <td>{{ message_saved.msg_content }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+
+    <form class="form" action="{% url 'myorderservicemessage_handler' %}?receiver=/myorderservicemessage?service_id={{ service_id }}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type='hidden' name="receiver" value="{{ receiver_id }}" />
+        {{ form.msg_content }}
+        <button type="submit" class="btn btn-primary btn-block">Send</button>
+    </form>
+{% else %}
+You haven't log in, please login.
+{% endif %}
+</body>
+</html>

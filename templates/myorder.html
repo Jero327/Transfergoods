@@ -45,7 +45,7 @@
             <td>{{ placedneeds.user }}</td>
             <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ placedneeds.image }}" height="23" width="35"></td>
             <td>
-                <a href="{% url 'message' %}?service_id={{ placedneeds.id }}">
+                <a href="{% url 'myorderneedmessage' %}?need_id={{ placedneeds.id }}">
                     Send message
                 </a>
             </td>
@@ -69,7 +69,7 @@
             <td>{{ payedneeds.user }}</td>
             <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ payedneeds.image }}" height="23" width="35"></td>
             <td>
-                <a href="{% url 'message' %}?service_id={{ payedneeds.id }}">
+                <a href="{% url 'myorderneedmessage' %}?need_id={{ payedneeds.id }}">
                     Send message
                 </a>
             </td>
@@ -93,7 +93,7 @@
             <td>{{ completedneeds.user }}</td>
             <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ completedneeds.image }}" height="23" width="35"></td>
             <td>
-                <a href="{% url 'message' %}?service_id={{ completedneeds.id }}">
+                <a href="{% url 'myorderneedmessage' %}?need_id={{ completedneeds.id }}">
                     Send message
                 </a>
             </td>
@@ -136,7 +136,7 @@
             <td>{{ placedservice.user }}</td>
             <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ placedservice.image }}" height="23" width="35"></td>
             <td>
-                <a href="{% url 'message' %}?service_id={{ placedservice.id }}">
+                <a href="{% url 'myorderservicemessage' %}?service_id={{ placedservice.id }}">
                     Send message
                 </a>
             </td>
@@ -169,7 +169,7 @@
             <td>{{ payedservice.user }}</td>
             <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ payedservice.image }}" height="23" width="35"></td>
             <td>
-                <a href="{% url 'message' %}?service_id={{ payedservice.id }}">
+                <a href="{% url 'myorderservicemessage' %}?service_id={{ payedservice.id }}">
                     Send message
                 </a>
             </td>
@@ -202,7 +202,7 @@
             <td>{{ completedservice.user }}</td>
             <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ completedservice.image }}" height="23" width="35"></td>
             <td>
-                <a href="{% url 'message' %}?service_id={{ completedservice.id }}">
+                <a href="{% url 'myorderservicemessage' %}?service_id={{ completedservice.id }}">
                     Send message
                 </a>
             </td>
