@@ -1,1 +1,1 @@
-web:gunicorn transfergoods_log.wsgi  __log-file -
+web:gunicorn transfergoods.wsgi  --log-file -
