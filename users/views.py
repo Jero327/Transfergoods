@@ -386,6 +386,36 @@ def replymessage_handler(request):
             # messages.success(request, 'Message sent!', extra_tags='alert')
             return redirect(redirect_to)
 
+def sendmessage(request):
+    receiver = request.GET.get('receiver')
+    receiver_id = User.objects.get(username=receiver).id
+    sender_id = User.objects.get(username=request.user).id
+    message_saved = Message.objects.filter(sender=sender_id, receiver=receiver_id)
+    form = MessageForm()
+    return render(request, 'sendmessage.html', context={'form': form, 'message_saved': message_saved, 'receiver':receiver, 'receiver_id':receiver_id})
+
+def sendmessage_handler(request):
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+
+        if form.is_valid():
+            redirect_to = request.GET.get('receiver')
+
+            instance = form.save(commit=False)
+
+            # receiver = request.user
+            sender_id = User.objects.get(username=request.user)
+            instance.sender = sender_id
+
+            created_at = datetime.now()
+            instance.created_at = created_at
+
+            instance.author = sender_id
+
+            instance.save()
+            # messages.success(request, 'Message sent!', extra_tags='alert')
+            return redirect(redirect_to)
+
 def inbox(request):
     # inboxmessage = Message.objects.filter(receiver=request.user).values('sender').annotate(qty=Count('sender'))
     # lastinboxmessage = Message.objects.filter(receiver=request.user).reverse()[0]

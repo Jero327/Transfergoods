@@ -29,7 +29,7 @@
             <td>{{ outboxmessage.msg_content }}</td>
             <td>{{ outboxmessage.created_at }}</td>
             <td>
-                <a href="{% url 'message' %}?receiver={{ outboxmessage.receiver }}">
+                <a href="{% url 'sendmessage' %}?receiver={{ outboxmessage.receiver }}">
                     send message
                 </a>
             </td>
