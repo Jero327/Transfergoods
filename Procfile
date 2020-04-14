@@ -1,1 +1,1 @@
-web:gunicorn transfergoods.wsgi  --log-file -
+web:gunicorn django_auth_example.wsgi  --log-file -
