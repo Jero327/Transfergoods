@@ -34,12 +34,14 @@ def register(request):
 
 
 def index(request):
-    allneeds = Need.objects.filter(orderstatus=1, isDeleteByUser=False)
+    orderstatus = OrderStatus.objects.get(status_name='published')
+    allneeds = Need.objects.filter(orderstatus=orderstatus, isDeleteByUser=False)
 
     return render(request, 'index.html', context={'allneeds': allneeds})
 
 def findservice(request):
-    allservice = Service.objects.filter(orderstatus=1, isDeleteByUser=False)
+    orderstatus = OrderStatus.objects.get(status_name='published')
+    allservice = Service.objects.filter(orderstatus=orderstatus, isDeleteByUser=False)
 
     return render(request, 'findservice.html', context={'allservice': allservice})
 
