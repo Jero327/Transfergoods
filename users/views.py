@@ -455,7 +455,7 @@ def placeorder_handler(request):
     service_id = request.GET.get('service_id')
     service = Service.objects.get(id=service_id)
     service.orderuser = request.user
-    orderstatus = OrderStatus.objects.get(id=4)
+    orderstatus = OrderStatus.objects.get(status_name='placed')
     service.orderstatus = orderstatus
     service.save()
 
@@ -473,7 +473,7 @@ def placeneedorder_handler(request):
     need_id = request.GET.get('need_id')
     need = Need.objects.get(id=need_id)
     need.orderuser = request.user
-    orderstatus = OrderStatus.objects.get(id=4)
+    orderstatus = OrderStatus.objects.get(status_name='placed')
     need.orderstatus = orderstatus
     need.save()
 
@@ -491,7 +491,7 @@ def payment_handler(request):
     service_id = request.GET.get('service_id')
     service = Service.objects.get(id=service_id)
 
-    orderstatus = OrderStatus.objects.get(id=2)
+    orderstatus = OrderStatus.objects.get(status_name='payed')
     service.orderstatus = orderstatus
     service.save()
 
@@ -501,7 +501,7 @@ def confirm(request):
     service_id = request.GET.get('service_id')
     service = Service.objects.get(id=service_id)
 
-    orderstatus = OrderStatus.objects.get(id=3)
+    orderstatus = OrderStatus.objects.get(status_name='completed')
     service.orderstatus = orderstatus
     service.save()
 
@@ -517,7 +517,7 @@ def needspayment_handler(request):
     need_id = request.GET.get('need_id')
     need = Need.objects.get(id=need_id)
 
-    orderstatus = OrderStatus.objects.get(id=2)
+    orderstatus = OrderStatus.objects.get(status_name='payed')
     need.orderstatus = orderstatus
     need.save()
 
@@ -527,7 +527,7 @@ def needsconfirm(request):
     need_id = request.GET.get('need_id')
     need = Need.objects.get(id=need_id)
 
-    orderstatus = OrderStatus.objects.get(id=3)
+    orderstatus = OrderStatus.objects.get(status_name='completed')
     need.orderstatus = orderstatus
     need.save()
 
