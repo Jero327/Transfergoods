@@ -219,7 +219,7 @@
             <td>{{ publishedservice.message }}</td>
             <td>published</td>
             <td>{{ publishedservice.orderuser }}</td>
-            <td>{{ publishedservice.image }}</td>
+            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ publishedservice.image }}" height="23" width="35"></td>
             <td>
                 <a href="{% url 'editservice' %}?serviceid={{ publishedservice.id }}">
                     Modify
@@ -247,7 +247,7 @@
             <td>{{ placedservice.message }}</td>
             <td>placed</td>
             <td>{{ placedservice.orderuser }}</td>
-            <td>{{ placedservice.image }}</td>
+            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ placedservice.image }}" height="23" width="35"></td>
             <td>
                 <a href="{% url 'editservice' %}?serviceid={{ placedservice.id }}">
                     Modify
@@ -275,7 +275,7 @@
             <td>{{ payedservice.message }}</td>
             <td>payed</td>
             <td>{{ payedservice.orderuser }}</td>
-            <td>{{ payedservice.image }}</td>
+            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ payedservice.image }}" height="23" width="35"></td>
             <td>
                 <a>
                     Forbidden
@@ -303,7 +303,7 @@
             <td>{{ completedservice.message }}</td>
             <td>completed</td>
             <td>{{ completedservice.orderuser }}</td>
-            <td>{{ completedservice.image }}</td>
+            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ completedservice.image }}" height="23" width="35"></td>
             <td>
                 <a>
                     Forbidden
