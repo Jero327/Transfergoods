@@ -154,4 +154,4 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 import dj_database_url
 prod_db = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].updata(prod_db)
+DATABASES['default'].update(prod_db)
