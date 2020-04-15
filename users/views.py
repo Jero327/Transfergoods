@@ -51,6 +51,8 @@ def addservice(request):
             instance = form.save(commit=False)
             username = request.user
             instance.user = username
+            orderstatus = OrderStatus.objects.get(status_name='published')
+            instance.orderstatus = orderstatus
             instance.save()
             messages.success(request, 'Addservice successfully!', extra_tags='alert')
             return redirect('/addservicedone/')
@@ -68,6 +70,8 @@ def addneeds(request):
             instance = form.save(commit=False)
             username = request.user
             instance.user = username
+            orderstatus = OrderStatus.objects.get(status_name='published')
+            instance.orderstatus = orderstatus
             instance.save()
             messages.success(request, 'Addneeds successfully!', extra_tags='alert')
             return redirect('/addneedsdone/')
