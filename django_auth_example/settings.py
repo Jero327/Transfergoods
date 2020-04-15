@@ -27,7 +27,10 @@ SECRET_KEY = '0s(bwn9^r$fqulu+cq)(gzc%@s84i*-2azqtdeyy)af^w3-a^w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['transfergoods.herokuapp.com']
+ALLOWED_HOSTS = [
+    'transfergoods.herokuapp.com',
+    '127.0.0.1',
+                 ]
 
 
 # Application definition
