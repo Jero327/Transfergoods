@@ -95,15 +95,23 @@ def addneedsdone(request):
 #     return render(request, 'index.html', context={'allneeds': allneeds})
 
 def mypublish(request):
-    publishedneeds = Need.objects.filter(user=request.user, orderstatus=1, isDeleteByUser=False)
-    placedneeds = Need.objects.filter(user=request.user, orderstatus=4, isDeleteByUser=False)
-    payedneeds = Need.objects.filter(user=request.user, orderstatus=2, isDeleteByUser=False)
-    completedneeds = Need.objects.filter(user=request.user, orderstatus=3, isDeleteByUser=False)
+    orderstatus = OrderStatus.objects.get(status_name='published')
+    publishedneeds = Need.objects.filter(user=request.user, orderstatus=orderstatus, isDeleteByUser=False)
+    orderstatus = OrderStatus.objects.get(status_name='placed')
+    placedneeds = Need.objects.filter(user=request.user, orderstatus=orderstatus, isDeleteByUser=False)
+    orderstatus = OrderStatus.objects.get(status_name='payed')
+    payedneeds = Need.objects.filter(user=request.user, orderstatus=orderstatus, isDeleteByUser=False)
+    orderstatus = OrderStatus.objects.get(status_name='completed')
+    completedneeds = Need.objects.filter(user=request.user, orderstatus=orderstatus, isDeleteByUser=False)
 
-    publishedservice = Service.objects.filter(user=request.user, orderstatus=1, isDeleteByUser=False)
-    placedservice = Service.objects.filter(user=request.user, orderstatus=4, isDeleteByUser=False)
-    payedservice = Service.objects.filter(user=request.user, orderstatus=2, isDeleteByUser=False)
-    completedservice = Service.objects.filter(user=request.user, orderstatus=3, isDeleteByUser=False)
+    orderstatus = OrderStatus.objects.get(status_name='published')
+    publishedservice = Service.objects.filter(user=request.user, orderstatus=orderstatus, isDeleteByUser=False)
+    orderstatus = OrderStatus.objects.get(status_name='placed')
+    placedservice = Service.objects.filter(user=request.user, orderstatus=orderstatus, isDeleteByUser=False)
+    orderstatus = OrderStatus.objects.get(status_name='payed')
+    payedservice = Service.objects.filter(user=request.user, orderstatus=orderstatus, isDeleteByUser=False)
+    orderstatus = OrderStatus.objects.get(status_name='completed')
+    completedservice = Service.objects.filter(user=request.user, orderstatus=orderstatus, isDeleteByUser=False)
 
     return render(request, 'mypublish.html', context={
         'publishedneeds':publishedneeds,
@@ -197,13 +205,19 @@ def editservice_handler(request):
         return redirect(reverse('mypublish'))
 
 def myorder(request):
-    placedneeds = Need.objects.filter(orderuser=request.user, orderstatus=4, isDeleteByOrderUser=False)
-    payedneeds = Need.objects.filter(orderuser=request.user, orderstatus=2, isDeleteByOrderUser=False)
-    completedneeds = Need.objects.filter(orderuser=request.user, orderstatus=3, isDeleteByOrderUser=False)
+    orderstatus = OrderStatus.objects.get(status_name='placed')
+    placedneeds = Need.objects.filter(orderuser=request.user, orderstatus=orderstatus, isDeleteByOrderUser=False)
+    orderstatus = OrderStatus.objects.get(status_name='payed')
+    payedneeds = Need.objects.filter(orderuser=request.user, orderstatus=orderstatus, isDeleteByOrderUser=False)
+    orderstatus = OrderStatus.objects.get(status_name='completed')
+    completedneeds = Need.objects.filter(orderuser=request.user, orderstatus=orderstatus, isDeleteByOrderUser=False)
 
-    placedservice = Service.objects.filter(orderuser=request.user, orderstatus=4, isDeleteByOrderUser=False)
-    payedservice = Service.objects.filter(orderuser=request.user, orderstatus=2, isDeleteByOrderUser=False)
-    completedservice = Service.objects.filter(orderuser=request.user, orderstatus=3, isDeleteByOrderUser=False)
+    orderstatus = OrderStatus.objects.get(status_name='placed')
+    placedservice = Service.objects.filter(orderuser=request.user, orderstatus=orderstatus, isDeleteByOrderUser=False)
+    orderstatus = OrderStatus.objects.get(status_name='payed')
+    payedservice = Service.objects.filter(orderuser=request.user, orderstatus=orderstatus, isDeleteByOrderUser=False)
+    orderstatus = OrderStatus.objects.get(status_name='completed')
+    completedservice = Service.objects.filter(orderuser=request.user, orderstatus=orderstatus, isDeleteByOrderUser=False)
 
     return render(request, 'myorder.html', context={
         'placedneeds': placedneeds,
