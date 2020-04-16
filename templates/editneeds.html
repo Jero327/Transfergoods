@@ -13,6 +13,11 @@
             color: red;
         }
     </style>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 </head>
 <body>
 {% if user.is_authenticated %}
@@ -26,6 +31,12 @@
             {% if field.help_text %}
                 <p class="help text-small text-muted">{{ field.help_text|safe }}</p>
             {% endif %}
+            <script>
+                $( function() {
+                    $( "#id_start_date" ).datepicker();
+                    $( "#id_end_date" ).datepicker();
+                });
+            </script>
         {% endfor %}
         <button type="submit" class="btn btn-primary btn-block">Publish</button>
     </form>
