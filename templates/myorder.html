@@ -7,15 +7,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Transfergoods</title>
     <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
-{#    <link rel="stylesheet" href="https://unpkg.com/mobi.css/dist/mobi.min.css">#}
-    <style>
-        .errorlist {
-            color: red;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+    <link rel="stylesheet" href="{% static 'css/Header-Blue.css' %}">
+    <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 </head>
 <body>
 {% if user.is_authenticated %}
+    <div>
+        <div class="header-blue" style="height: 63px;">
+            <nav class="navbar navbar-light navbar-expand-md navigation-clean-search">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="{% url 'index' %}">
+                        Transfergoods
+                    </a>
+                    <div class="collapse navbar-collapse" id="navcol-1">
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" href="#">
+                                    Help
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">
+                                    My Transfergoods
+                                </a>
+                                <div class="dropdown-menu" role="menu">
+                                    <a class="dropdown-item" role="presentation" style="color: #4f86c3">
+                                        Welcome: {{ user.username }}
+                                    </a>
+                                    <a class="dropdown-item" role="presentation" href="{% url 'mypublish' %}">
+                                        My Publish
+                                    </a>
+                                    <a class="dropdown-item" role="presentation" href="{% url 'myorder' %}">
+                                        My Order
+                                    </a>
+                                    <a class="dropdown-item" role="presentation" href="{% url 'inbox' %}">
+                                        Inbox
+                                    </a>
+                                    <a class="dropdown-item" role="presentation" href="{% url 'outbox' %}">
+                                        Outbox
+                                    </a>
+                                    <a class="dropdown-item" role="presentation" href="{% url 'password_change' %}?next={{ request.path }}">
+                                        Change Password
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <br/>
     <h1>Needs</h1>
     <table border="1">
         <tr>
@@ -43,7 +91,7 @@
             <td>{{ placedneeds.message }}</td>
             <td>placed</td>
             <td>{{ placedneeds.user }}</td>
-            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ placedneeds.image }}" height="23" width="35"></td>
+            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ placedneeds.image }}" style="width:70px;height:46px;"></td>
             <td>
                 <a href="{% url 'myorderneedmessage' %}?need_id={{ placedneeds.id }}">
                     Send message
@@ -67,7 +115,7 @@
             <td>{{ payedneeds.message }}</td>
             <td>payed</td>
             <td>{{ payedneeds.user }}</td>
-            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ payedneeds.image }}" height="23" width="35"></td>
+            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ payedneeds.image }}" style="width:70px;height:46px;"></td>
             <td>
                 <a href="{% url 'myorderneedmessage' %}?need_id={{ payedneeds.id }}">
                     Send message
@@ -91,7 +139,7 @@
             <td>{{ completedneeds.message }}</td>
             <td>completed</td>
             <td>{{ completedneeds.user }}</td>
-            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ completedneeds.image }}" height="23" width="35"></td>
+            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ completedneeds.image }}" style="width:70px;height:46px;"></td>
             <td>
                 <a href="{% url 'myorderneedmessage' %}?need_id={{ completedneeds.id }}">
                     Send message
@@ -105,7 +153,7 @@
         </tr>
         {% endfor %}
     </table>
-
+    <br/>
     <h1>Service</h1>
     <table border="1">
         <tr>
@@ -134,7 +182,7 @@
             <td>{{ placedservice.message }}</td>
             <td>placed</td>
             <td>{{ placedservice.user }}</td>
-            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ placedservice.image }}" height="23" width="35"></td>
+            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ placedservice.image }}" style="width:70px;height:46px;"></td>
             <td>
                 <a href="{% url 'myorderservicemessage' %}?service_id={{ placedservice.id }}">
                     Send message
@@ -167,7 +215,7 @@
             <td>{{ payedservice.message }}</td>
             <td>payed</td>
             <td>{{ payedservice.user }}</td>
-            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ payedservice.image }}" height="23" width="35"></td>
+            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ payedservice.image }}" style="width:70px;height:46px;"></td>
             <td>
                 <a href="{% url 'myorderservicemessage' %}?service_id={{ payedservice.id }}">
                     Send message
@@ -200,7 +248,7 @@
             <td>{{ completedservice.message }}</td>
             <td>completed</td>
             <td>{{ completedservice.user }}</td>
-            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ completedservice.image }}" height="23" width="35"></td>
+            <td><img class="img-fluid" src="{{ MEDIA_URL }}{{ completedservice.image }}" style="width:70px;height:46px;"></td>
             <td>
                 <a href="{% url 'myorderservicemessage' %}?service_id={{ completedservice.id }}">
                     Send message
@@ -227,5 +275,9 @@
 {% else %}
 You haven't log in, please login.
 {% endif %}
+<script src="static/js/jquery.min.js"></script>
+<script src="static/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </body>
 </html>

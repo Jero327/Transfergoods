@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Transfergoods</title>
     <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
-{#    <link rel="stylesheet" href="https://unpkg.com/mobi.css/dist/mobi.min.css">#}
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
     <link rel="stylesheet" href="{% static 'css/Header-Blue.css' %}">
@@ -28,7 +27,7 @@
                     <div class="header-blue" style="height: 63px;">
                         <nav class="navbar navbar-light navbar-expand-md navigation-clean-search">
                             <div class="container-fluid">
-                                <a class="navbar-brand" href="#">
+                                <a class="navbar-brand" href="{% url 'index' %}">
                                     Transfergoods
                                 </a>
                                 <div class="collapse navbar-collapse" id="navcol-1">
@@ -105,7 +104,7 @@
                             {% for service in allservice %}
                                 <div class="col-sm-6 col-md-4 item">
                                     <a href="#">
-                                        <img class="img-fluid" src="{{ MEDIA_URL }}{{ service.image }}">
+                                        <img class="img-fluid" src="{{ MEDIA_URL }}{{ service.image }}" style="width:350px;height:233px;">
                                     </a>
 {#                                    <h3 class="text-light name">#}
 {#                                        <strong>#}
