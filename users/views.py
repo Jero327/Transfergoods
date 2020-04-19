@@ -255,6 +255,8 @@ def message(request):
     receiver_id = User.objects.get(username=receiver).id
     message_saved = Message.objects.filter(sender=sender_id, receiver=receiver_id)
     form = MessageForm()
+    if receiver == request.user:
+        return redirect('findservice')
     return render(request, 'message.html', context={'form': form, 'message_saved': message_saved, 'receiver':receiver, 'receiver_id':receiver_id, 'service_id':service_id})
 
 def message_handler(request):
@@ -287,6 +289,8 @@ def orderneedmessage(request):
     receiver_id = User.objects.get(username=receiver).id
     message_saved = Message.objects.filter(sender=sender_id, receiver=receiver_id)
     form = MessageForm()
+    if receiver == request.user:
+        return redirect('index')
     return render(request, 'orderneedmessage.html', context={'form': form, 'message_saved': message_saved, 'receiver':receiver, 'receiver_id':receiver_id, 'need_id':need_id})
 
 def orderneedmessage_handler(request):
