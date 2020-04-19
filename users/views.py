@@ -480,12 +480,16 @@ def placeorder_handler(request):
     service = Service.objects.get(id=service_id)
     service.orderuser = request.user
     orderstatus = OrderStatus.objects.get(status_name='placed')
-    service.orderstatus = orderstatus
-    service.save()
+    checkstatus = OrderStatus.objects.get(status_name='published')
+    if service.orderstatus == checkstatus:
+        service.orderstatus = orderstatus
+        service.save()
 
-    redirect_to = '/payment?service_id=' + service_id
+        redirect_to = '/payment?service_id=' + service_id
 
-    return redirect(redirect_to)
+        return redirect(redirect_to)
+    else:
+        return redirect('error')
 
 def placeneedorder(request):
     need_id = request.GET.get('need_id')
@@ -498,12 +502,16 @@ def placeneedorder_handler(request):
     need = Need.objects.get(id=need_id)
     need.orderuser = request.user
     orderstatus = OrderStatus.objects.get(status_name='placed')
-    need.orderstatus = orderstatus
-    need.save()
+    checkstatus = OrderStatus.objects.get(status_name='published')
+    if need.orderstatus == checkstatus:
+        need.orderstatus = orderstatus
+        need.save()
 
-    redirect_to = 'myorder'
+        redirect_to = 'myorder'
 
-    return redirect(redirect_to)
+        return redirect(redirect_to)
+    else:
+        return redirect('error')
 
 def payment(request):
     service_id = request.GET.get('service_id')
@@ -516,20 +524,28 @@ def payment_handler(request):
     service = Service.objects.get(id=service_id)
 
     orderstatus = OrderStatus.objects.get(status_name='payed')
-    service.orderstatus = orderstatus
-    service.save()
+    checkstatus = OrderStatus.objects.get(status_name='placed')
+    if service.orderstatus == checkstatus:
+        service.orderstatus = orderstatus
+        service.save()
 
-    return redirect('myorder')
+        return redirect('myorder')
+    else:
+        return redirect('error')
 
 def confirm(request):
     service_id = request.GET.get('service_id')
     service = Service.objects.get(id=service_id)
 
     orderstatus = OrderStatus.objects.get(status_name='completed')
-    service.orderstatus = orderstatus
-    service.save()
+    checkstatus = OrderStatus.objects.get(status_name='payed')
+    if service.orderstatus == checkstatus:
+        service.orderstatus = orderstatus
+        service.save()
 
-    return redirect('myorder')
+        return redirect('myorder')
+    else:
+        return redirect('error')
 
 def needspayment(request):
     need_id = request.GET.get('need_id')
@@ -542,17 +558,29 @@ def needspayment_handler(request):
     need = Need.objects.get(id=need_id)
 
     orderstatus = OrderStatus.objects.get(status_name='payed')
-    need.orderstatus = orderstatus
-    need.save()
+    checkstatus = OrderStatus.objects.get(status_name='placed')
+    if need.orderstatus == checkstatus:
+        need.orderstatus = orderstatus
+        need.save()
 
-    return redirect('mypublish')
+        return redirect('mypublish')
+    else:
+        return redirect('error')
 
 def needsconfirm(request):
     need_id = request.GET.get('need_id')
     need = Need.objects.get(id=need_id)
 
     orderstatus = OrderStatus.objects.get(status_name='completed')
-    need.orderstatus = orderstatus
-    need.save()
+    checkstatus = OrderStatus.objects.get(status_name='payed')
+    if need.orderstatus == checkstatus:
+        need.orderstatus = orderstatus
+        need.save()
 
-    return redirect('mypublish')
+        return redirect('mypublish')
+    else:
+        return redirect('error')
+
+def error(request):
+
+    return render(request, 'error.html')

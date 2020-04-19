@@ -65,6 +65,7 @@ urlpatterns = [
     url(r'^needsconfirm$', views.needsconfirm, name='needsconfirm'),
     url(r'^inbox$', views.inbox, name='inbox'),
     url(r'^outbox$', views.outbox, name='outbox'),
+    url(r'^error$', views.error, name='error'),
 
     # url(r'users/', views.index, name='index'),
 ]+ static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
