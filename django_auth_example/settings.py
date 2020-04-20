@@ -151,7 +151,16 @@ AUTH_USER_MODEL = 'users.User'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/findneeds/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'jeraviah2@gmail.com'
+EMAIL_HOST_PASSWORD = '13579guo@'
+DEFAULT_FROM_EMAIL = 'jeraviah2@gmail.com'
+SERVER_EMAIL = 'jeraviah2@gmail.com'
 
 # django_heroku.settings(locals())
 
