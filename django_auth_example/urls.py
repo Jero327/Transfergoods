@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
     path('users/', include('django.contrib.auth.urls')),
+    url(r'session_security/', include('session_security.urls')),
     url(r'^$', views.index, name='index'),
     url(r'^findneeds/$', views.index, name='findneeds'),
     url(r'^findservice/$', views.findservice, name='findservice'),
