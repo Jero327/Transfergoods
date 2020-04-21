@@ -135,35 +135,35 @@ def deleteneeds(request):
     return redirect(reverse('mypublish'))
 
 def editneeds(request):
-    needsid = request.GET.get('needsid')
-    needs = Need.objects.get(id=needsid)
+    if request.method == 'POST':
+        needsid = request.POST.get('needsid')
+        needs = Need.objects.get(id=needsid)
 
-    data = {
-        "image": needs.image,
-        "start_city": needs.start_city,
-        "end_city": needs.end_city,
-        "start_date": needs.start_date,
-        "end_date": needs.end_date,
-        "good_name": needs.good_name,
-        "offer_price": needs.offer_price,
-        "message": needs.message,
-             }
-    form = AddNeedsForm(initial=data)
+        form = AddNeedsForm(request.POST or None, request.FILES or None, instance=needs)
+
+        if form.is_valid():
+            instance = form.save(commit=False)
+            username = request.user
+            instance.user = username
+            instance.save()
+            return redirect(reverse('mypublish'))
+    else:
+        needsid = request.GET.get('needsid')
+        needs = Need.objects.get(id=needsid)
+
+        data = {
+            "image": needs.image,
+            "start_city": needs.start_city,
+            "end_city": needs.end_city,
+            "start_date": needs.start_date,
+            "end_date": needs.end_date,
+            "good_name": needs.good_name,
+            "offer_price": needs.offer_price,
+            "message": needs.message,
+                 }
+        form = AddNeedsForm(initial=data)
 
     return render(request, 'editneeds.html', {'form':form, 'needs':needs})
-
-def editneeds_handler(request):
-    needsid = request.POST.get('needsid')
-    needs = Need.objects.get(id=needsid)
-
-    form = AddNeedsForm(request.POST or None, request.FILES or None, instance=needs)
-
-    if form.is_valid():
-        instance = form.save(commit=False)
-        username = request.user
-        instance.user = username
-        instance.save()
-        return redirect(reverse('mypublish'))
 
 def deleteservice(request):
     print('Are you sure?')
@@ -175,34 +175,34 @@ def deleteservice(request):
     return redirect(reverse('mypublish'))
 
 def editservice(request):
-    serviceid = request.GET.get('serviceid')
-    service = Service.objects.get(id=serviceid)
+    if request.method == 'POST':
+        serviceid = request.POST.get('serviceid')
+        service = Service.objects.get(id=serviceid)
 
-    data = {
-        "image": service.image,
-        "start_city": service.start_city,
-        "end_city": service.end_city,
-        "start_date": service.start_date,
-        "end_date": service.end_date,
-        "ask_price": service.ask_price,
-        "message": service.message,
-    }
-    form = AddServiceForm(initial=data)
+        form = AddServiceForm(request.POST or None, request.FILES or None, instance=service)
+
+        if form.is_valid():
+            instance = form.save(commit=False)
+            username = request.user
+            instance.user = username
+            instance.save()
+            return redirect(reverse('mypublish'))
+    else:
+        serviceid = request.GET.get('serviceid')
+        service = Service.objects.get(id=serviceid)
+
+        data = {
+            "image": service.image,
+            "start_city": service.start_city,
+            "end_city": service.end_city,
+            "start_date": service.start_date,
+            "end_date": service.end_date,
+            "ask_price": service.ask_price,
+            "message": service.message,
+        }
+        form = AddServiceForm(initial=data)
 
     return render(request, 'editservice.html', {'form':form, 'service':service})
-
-def editservice_handler(request):
-    serviceid = request.POST.get('serviceid')
-    service = Service.objects.get(id=serviceid)
-
-    form = AddServiceForm(request.POST or None, request.FILES or None, instance=service)
-
-    if form.is_valid():
-        instance = form.save(commit=False)
-        username = request.user
-        instance.user = username
-        instance.save()
-        return redirect(reverse('mypublish'))
 
 def myorder(request):
     orderstatus = OrderStatus.objects.get(status_name='placed')

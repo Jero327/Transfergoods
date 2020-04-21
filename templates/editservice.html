@@ -64,7 +64,7 @@
         </div>
     </div>
     <br/>
-    <form class="form" action="{% url 'editservice_handler' %}" method="post" enctype="multipart/form-data">
+    <form class="form" action="{% url 'editservice' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="hidden" value="{{ service.id }}" name="serviceid"/>
         {% for field in form %}
