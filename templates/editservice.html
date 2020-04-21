@@ -76,8 +76,8 @@
             {% endif %}
             <script>
                 $( function() {
-                    $( "#id_start_date" ).datepicker();
-                    $( "#id_end_date" ).datepicker();
+                    $( "#id_start_date" ).datepicker({minDate: 0});
+                    $( "#id_end_date" ).datepicker({minDate: 0});
                 });
             </script>
         {% endfor %}

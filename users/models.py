@@ -5,6 +5,8 @@ import datetime
 
 from django.contrib.auth.models import AbstractUser
 
+from django.core.validators import MaxValueValidator, MinValueValidator
+
 class User(AbstractUser):
     nickname = models.CharField(max_length=50, blank=True)
 
@@ -30,7 +32,7 @@ class Service(models.Model):
     end_city = models.ForeignKey("City", related_name='service_end_city', on_delete=models.CASCADE, null=True)
     start_date = models.DateField()
     end_date = models.DateField()
-    ask_price = models.IntegerField()
+    ask_price = models.IntegerField(validators=[MinValueValidator(1)])
     message = models.CharField(max_length=100)
 
     user = models.ForeignKey("User", related_name='service_user', on_delete=models.CASCADE, null=True)
@@ -51,7 +53,7 @@ class Need(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     good_name = models.CharField(max_length=100)
-    offer_price = models.IntegerField()
+    offer_price = models.IntegerField(validators=[MinValueValidator(1)])
     message = models.CharField(max_length=100)
 
     user = models.ForeignKey("User", related_name='need_user', on_delete=models.CASCADE, null=True)
