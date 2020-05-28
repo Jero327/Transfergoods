@@ -46,12 +46,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'shell_plus',
     'django_extensions',
-    'rest_framework',
-    'debug_toolbar',
+    # 'rest_framework',
+    # 'debug_toolbar',
 ]
 
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -181,18 +181,18 @@ SESSION_SECURITY_EXPIRE_AFTER = 600
 # SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_SECURITY_INSECURE = True
 
-REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
-}
-
-# Django_debug_toolbar
-INTERNAL_IPS = [
-    '127.0.0.1',
-]
+# REST_FRAMEWORK = {
+#     # Use Django's standard `django.contrib.auth` permissions,
+#     # or allow read-only access for unauthenticated users.
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+#     ]
+# }
+#
+# # Django_debug_toolbar
+# INTERNAL_IPS = [
+#     '127.0.0.1',
+# ]
 
 # S3
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
