@@ -31,6 +31,7 @@ ALLOWED_HOSTS = [
     'transfergoods.herokuapp.com',
     '127.0.0.1',
     'transfergoods.co.nz',
+    'www.transfergoods.co.nz',
                  ]
 
 
