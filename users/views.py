@@ -10,9 +10,20 @@ from django.contrib import messages
 
 from django.urls import reverse
 
-from datetime import datetime
+import datetime
 
 from django.db.models import Count
+
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
+from rest_framework import status, permissions, viewsets, mixins
+
+from .serializers import *
+
+from rest_framework.generics import ListAPIView
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import AllowAny
+# import boto3
 
 def register(request):
     redirect_to = request.POST.get('next', request.GET.get('next', ''))
@@ -74,12 +85,37 @@ def addneeds(request):
             instance.user = username
             orderstatus = OrderStatus.objects.get(status_name='published')
             instance.orderstatus = orderstatus
+            # imgurl = request.POST.get('img-url')
+            # instance.imageurl = imgurl
             instance.save()
             messages.success(request, 'Addneeds successfully!', extra_tags='alert')
             return redirect('/addneedsdone/')
 
     else:
         form = AddNeedsForm()
+
+        # S3_BUCKET = os.environ.get('S3_BUCKET')
+        #
+        # file_name = request.args.get('file_name')
+        # file_type = request.args.get('file_type')
+        #
+        # s3 = boto3.client('s3')
+        #
+        # presigned_post = s3.generate_presigned_post(
+        #     Bucket=S3_BUCKET,
+        #     Key=file_name,
+        #     Fields={"acl": "public-read", "Content-Type": file_type},
+        #     Conditions=[
+        #         {"acl": "public-read"},
+        #         {"Content-Type": file_type}
+        #     ],
+        #     ExpiresIn=3600
+        # )
+        #
+        # return json.dumps({
+        #     'data': presigned_post,
+        #     'url': 'https://%s.s3.amazonaws.com/%s' % (S3_BUCKET, file_name)
+        # })
 
     return render(request, 'addneeds.html', context={'form': form})
 
@@ -306,7 +342,7 @@ def orderneedmessage_handler(request):
             sender_id = User.objects.get(username=request.user)
             instance.sender = sender_id
 
-            created_at = datetime.now()
+            created_at = datetime.datetime.now()
             instance.created_at = created_at
 
             instance.author = sender_id
@@ -584,3 +620,63 @@ def needsconfirm(request):
 def error(request):
 
     return render(request, 'error.html')
+
+# class UserViewSet(viewsets.ModelViewSet):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
+#     pagination_class = PageNumberPagination
+#     permission_classes = [AllowAny]
+#
+# # @api_view(http_method_names=["GET"])
+# # @permission_classes((permissions.AllowAny,))
+# class NeedViewSet(viewsets.ModelViewSet):
+#     orderstatus = OrderStatus.objects.get(status_name='published')
+#     queryset = Need.objects.filter(orderstatus=orderstatus, isDeleteByUser=False)
+#     # serializer = NeedListSerializer(allneeds, many=True)
+#     serializer_class = NeedListSerializer
+#
+#     # return Response(serializer.data, status=status.HTTP_200_OK)
+#
+# class ServiceListAPIView(ListAPIView):
+#     serializer_class = ServiceListSerializer
+#     orderstatus = OrderStatus.objects.get(status_name='published')
+#     queryset = Service.objects.filter(orderstatus=orderstatus, isDeleteByUser=False)
+#     pagination_class = PageNumberPagination
+#     permission_classes = [AllowAny]
+
+
+@api_view(['GET', 'POST'])
+def citys_list(request):
+    if request.method == 'GET':
+        data = City.objects.all()
+
+        serializer = CitySerializer(data, context={'request': request}, many=True)
+
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = CitySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PUT', 'DELETE'])
+def citys_detail(request, pk):
+    try:
+        city = City.objects.get(pk=pk)
+    except City.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
+        serializer = CitySerializer(city, data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        city.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

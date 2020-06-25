@@ -14,16 +14,27 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.conf.urls import url, include
 from users import views
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework import routers
+
+# Routers provide an easy way of automatically determining the URL conf.
+# router = routers.DefaultRouter()
+# router.register(r'users', views.UserViewSet, basename='user')
+# router.register(r'needlist', views.NeedViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
     path('users/', include('django.contrib.auth.urls')),
+    # path("api/", include(router.urls)),
+    # path("api/auth/", include("rest_framework.urls", namespace="rest_framework")),
+    # path('api/servicelist/', views.ServiceListAPIView.as_view()),
+    re_path(r'^api/citys/$', views.citys_list),
+    re_path(r'^api/citys/(?P<pk>[0-9]+)$', views.citys_detail),
     url(r'session_security/', include('session_security.urls')),
     url(r'^$', views.index, name='index'),
     url(r'^findneeds/$', views.index, name='findneeds'),
@@ -69,3 +80,8 @@ urlpatterns = [
     # url(r'users/', views.index, name='index'),
 ]+ static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
 
+# if settings.DEBUG:
+#     import debug_toolbar
+#     urlpatterns = [
+#         path('__debug__/', include(debug_toolbar.urls)),
+#     ] + urlpatterns
