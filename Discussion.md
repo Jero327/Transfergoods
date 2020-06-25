@@ -1,1 +1,2 @@
-
+Have a few paragraphs, and using your journal, write some notes about what you learned in the course, most/least fun parts, hardest parts, etc. For marking the discussion I'll just need people to demonstrate that they understand the differences between A1 and A2, where/when you would use A1 style, and where/when you would use A2 style.
+(By now, I feel serverside rendering is enough for the app needs. But the other existed online app are rich of UX design, which is good for end users' experience. And almost all the potential employers are looking for front-end and back-end developer separately. So, building API and handle the front-end framework are some must skill we need. In the mean time, serverside rendering is a fast way to build easy app.)
