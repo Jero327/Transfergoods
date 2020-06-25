@@ -21,18 +21,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import routers
 
-# Routers provide an easy way of automatically determining the URL conf.
-# router = routers.DefaultRouter()
-# router.register(r'users', views.UserViewSet, basename='user')
-# router.register(r'needlist', views.NeedViewSet)
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
     path('users/', include('django.contrib.auth.urls')),
-    # path("api/", include(router.urls)),
-    # path("api/auth/", include("rest_framework.urls", namespace="rest_framework")),
-    # path('api/servicelist/', views.ServiceListAPIView.as_view()),
     re_path(r'^api/citys/$', views.citys_list),
     re_path(r'^api/citys/(?P<pk>[0-9]+)$', views.citys_detail),
     url(r'session_security/', include('session_security.urls')),
@@ -76,8 +68,6 @@ urlpatterns = [
     url(r'^inbox$', views.inbox, name='inbox'),
     url(r'^outbox$', views.outbox, name='outbox'),
     url(r'^error$', views.error, name='error'),
-
-    # url(r'users/', views.index, name='index'),
 ]+ static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
 
 # if settings.DEBUG:

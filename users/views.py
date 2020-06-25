@@ -125,11 +125,6 @@ def addservicedone(request):
 def addneedsdone(request):
     return render(request, 'addneedsdone.html')
 
-# def displayneeds(request):
-#     allneeds = Need.objects.all()
-#
-#     return render(request, 'index.html', context={'allneeds': allneeds})
-
 def mypublish(request):
     orderstatus = OrderStatus.objects.get(status_name='published')
     publishedneeds = Need.objects.filter(user=request.user, orderstatus=orderstatus, isDeleteByUser=False)
@@ -304,7 +299,6 @@ def message_handler(request):
 
             instance = form.save(commit=False)
 
-            # sender = request.user
             sender_id = User.objects.get(username=request.user)
             instance.sender = sender_id
 
@@ -314,7 +308,6 @@ def message_handler(request):
             instance.author = sender_id
 
             instance.save()
-            # messages.success(request, 'Message sent!', extra_tags='alert')
             return redirect(redirect_to)
 
 def orderneedmessage(request):
@@ -338,7 +331,6 @@ def orderneedmessage_handler(request):
 
             instance = form.save(commit=False)
 
-            # sender = request.user
             sender_id = User.objects.get(username=request.user)
             instance.sender = sender_id
 
@@ -348,7 +340,6 @@ def orderneedmessage_handler(request):
             instance.author = sender_id
 
             instance.save()
-            # messages.success(request, 'Message sent!', extra_tags='alert')
             return redirect(redirect_to)
 
 def myorderneedmessage(request):
@@ -370,7 +361,6 @@ def myorderneedmessage_handler(request):
 
             instance = form.save(commit=False)
 
-            # sender = request.user
             sender_id = User.objects.get(username=request.user)
             instance.sender = sender_id
 
@@ -380,7 +370,6 @@ def myorderneedmessage_handler(request):
             instance.author = sender_id
 
             instance.save()
-            # messages.success(request, 'Message sent!', extra_tags='alert')
             return redirect(redirect_to)
 
 def myorderservicemessage(request):
@@ -403,7 +392,6 @@ def myorderservicemessage_handler(request):
 
             instance = form.save(commit=False)
 
-            # sender = request.user
             sender_id = User.objects.get(username=request.user)
             instance.sender = sender_id
 
@@ -413,7 +401,6 @@ def myorderservicemessage_handler(request):
             instance.author = sender_id
 
             instance.save()
-            # messages.success(request, 'Message sent!', extra_tags='alert')
             return redirect(redirect_to)
 
 def replymessage(request):
@@ -433,7 +420,6 @@ def replymessage_handler(request):
 
             instance = form.save(commit=False)
 
-            # receiver = request.user
             receiver_id = User.objects.get(username=request.user)
             instance.receiver = receiver_id
 
@@ -443,7 +429,6 @@ def replymessage_handler(request):
             instance.author = receiver_id
 
             instance.save()
-            # messages.success(request, 'Message sent!', extra_tags='alert')
             return redirect(redirect_to)
 
 def sendmessage(request):
@@ -463,7 +448,6 @@ def sendmessage_handler(request):
 
             instance = form.save(commit=False)
 
-            # receiver = request.user
             sender_id = User.objects.get(username=request.user)
             instance.sender = sender_id
 
@@ -473,30 +457,15 @@ def sendmessage_handler(request):
             instance.author = sender_id
 
             instance.save()
-            # messages.success(request, 'Message sent!', extra_tags='alert')
             return redirect(redirect_to)
 
 def inbox(request):
-    # inboxmessage = Message.objects.filter(receiver=request.user).values('sender').annotate(qty=Count('sender'))
-    # lastinboxmessage = Message.objects.filter(receiver=request.user).reverse()[0]
-
     inboxmessage = Message.objects.filter(receiver=request.user)\
         .order_by('sender', '-created_at').distinct('sender')
-
-    # inboxmessage = Message.objects.filter(receiver=request.user).raw("""\
-    #     SELECT * FROM
-    #     (
-    #         SELECT sender, msg_content, created_at
-    #         FROM Message
-    #         ORDER BY created_at DESC
-    #     ) t
-    #     GROUP BY t.sender
-    # """)
 
     return render(request, 'inbox.html', context={'inboxmessage':inboxmessage})
 
 def outbox(request):
-    # outboxmessage = Message.objects.filter(sender=request.user).values('receiver').annotate(qty=Count('receiver'))
     outboxmessage = Message.objects.filter(sender=request.user) \
         .order_by('receiver', '-created_at').distinct('receiver')
 
@@ -510,8 +479,6 @@ def placeorder(request):
     return render(request, 'placeorder.html', context={'service':service})
 
 def placeorder_handler(request):
-    # user_id = User.objects.get(username=request.user).id
-
     service_id = request.GET.get('service_id')
     service = Service.objects.get(id=service_id)
     service.orderuser = request.user
@@ -621,30 +588,6 @@ def error(request):
 
     return render(request, 'error.html')
 
-# class UserViewSet(viewsets.ModelViewSet):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
-#     pagination_class = PageNumberPagination
-#     permission_classes = [AllowAny]
-#
-# # @api_view(http_method_names=["GET"])
-# # @permission_classes((permissions.AllowAny,))
-# class NeedViewSet(viewsets.ModelViewSet):
-#     orderstatus = OrderStatus.objects.get(status_name='published')
-#     queryset = Need.objects.filter(orderstatus=orderstatus, isDeleteByUser=False)
-#     # serializer = NeedListSerializer(allneeds, many=True)
-#     serializer_class = NeedListSerializer
-#
-#     # return Response(serializer.data, status=status.HTTP_200_OK)
-#
-# class ServiceListAPIView(ListAPIView):
-#     serializer_class = ServiceListSerializer
-#     orderstatus = OrderStatus.objects.get(status_name='published')
-#     queryset = Service.objects.filter(orderstatus=orderstatus, isDeleteByUser=False)
-#     pagination_class = PageNumberPagination
-#     permission_classes = [AllowAny]
-
-
 @api_view(['GET', 'POST'])
 def citys_list(request):
     if request.method == 'GET':
@@ -661,7 +604,6 @@ def citys_list(request):
             return Response(status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 @api_view(['PUT', 'DELETE'])
 def citys_detail(request, pk):
