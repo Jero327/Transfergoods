@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
-import { Modal, ModalHeader, Button, ModalFooter } from "reactstrap";
+import { Modal, ModalHeader, ModalFooter } from "reactstrap";
+import Button from "@material-ui/core/Button";
 
 import axios from "axios";
 
@@ -27,7 +28,7 @@ class ConfirmRemovalModal extends Component {
     return (
       <Fragment>
         <Button color="danger" onClick={() => this.toggle()}>
-          Remove
+          Delete
         </Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>

@@ -19,7 +19,7 @@ class CityList extends Component {
           {!citys || citys.length <= 0 ? (
             <tr>
               <td colSpan="6" align="center">
-                <b>Ops, no one here yet</b>
+                <b>Let's add some citys</b>
               </td>
             </tr>
           ) : (

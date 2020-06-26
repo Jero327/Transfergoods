@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
-import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
+import { Modal, ModalHeader, ModalBody } from "reactstrap";
+import Button from '@material-ui/core/Button';
 import NewCityForm from "./NewCityForm";
 
 class NewCityModal extends Component {
@@ -26,7 +27,8 @@ class NewCityModal extends Component {
           color="primary"
           className="float-right"
           onClick={this.toggle}
-          style={{ minWidth: "200px" }}
+          style={{ minWidth: "100px" }}
+          variant="contained"
         >
           Create New
         </Button>
