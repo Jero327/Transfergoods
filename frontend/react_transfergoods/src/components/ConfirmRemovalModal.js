@@ -2,8 +2,6 @@ import React, { Component, Fragment } from "react";
 import { Modal, ModalHeader, ModalFooter } from "reactstrap";
 import Button from "@material-ui/core/Button";
 
-import axios from "axios";
-
 import { API_URL } from "../constants";
 
 class ConfirmRemovalModal extends Component {
@@ -18,7 +16,14 @@ class ConfirmRemovalModal extends Component {
   };
 
   deleteCity = pk => {
-    axios.delete(API_URL + pk).then(() => {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8'
+      }
+    };
+    fetch(API_URL + pk, options).then(() => {
       this.props.resetState();
       this.toggle();
     });

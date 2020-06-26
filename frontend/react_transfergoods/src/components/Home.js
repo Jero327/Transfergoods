@@ -3,8 +3,6 @@ import { Col, Container, Row } from "reactstrap";
 import CityList from "./CityList";
 import NewCityModal from "./NewCityModal";
 
-import axios from "axios";
-
 import { API_URL } from "../constants";
 
 class Home extends Component {
@@ -17,7 +15,14 @@ class Home extends Component {
   }
 
   getCitys = () => {
-    axios.get(API_URL).then(res => this.setState({ citys: res.data }));
+    const options = {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8'
+      }
+    };
+    fetch(API_URL, options).then(res => res.json()).then(res => this.setState({ citys: res }));
   };
 
   resetState = () => {
