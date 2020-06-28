@@ -29,6 +29,7 @@ urlpatterns = [
     re_path(r'^api/citys/(?P<pk>[0-9]+)$', views.citys_detail),
     url(r'session_security/', include('session_security.urls')),
     url(r'^$', views.index, name='index'),
+    url(r'^citys$', views.citys, name='citys'),
     url(r'^findneeds/$', views.index, name='findneeds'),
     url(r'^findservice/$', views.findservice, name='findservice'),
     url(r'^addservice$', views.addservice, name='addservice'),

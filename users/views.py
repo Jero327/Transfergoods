@@ -50,6 +50,10 @@ def index(request):
 
     return render(request, 'index.html', context={'allneeds': allneeds})
 
+def citys(request):
+
+    return render(request, 'citys/citys.html')
+
 def findservice(request):
     orderstatus = OrderStatus.objects.get(status_name='published')
     allservice = Service.objects.filter(orderstatus=orderstatus, isDeleteByUser=False)
