@@ -626,3 +626,21 @@ def citys_detail(request, pk):
     elif request.method == 'DELETE':
         city.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    pagination_class = PageNumberPagination
+    permission_classes = [AllowAny]
+
+class NeedViewSet(viewsets.ModelViewSet):
+    orderstatus = OrderStatus.objects.get(status_name='published')
+    queryset = Need.objects.filter(orderstatus=orderstatus, isDeleteByUser=False)
+    serializer_class = NeedListSerializer
+
+class ServiceViewSet(viewsets.ModelViewSet):
+    serializer_class = ServiceListSerializer
+    orderstatus = OrderStatus.objects.get(status_name='published')
+    queryset = Service.objects.filter(orderstatus=orderstatus, isDeleteByUser=False)
+    pagination_class = PageNumberPagination
+    permission_classes = [AllowAny]
