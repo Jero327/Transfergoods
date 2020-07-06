@@ -20,11 +20,11 @@ class City(models.Model):
     def __str__(self):
         return f'{self.name}'
 
-class OrderStatus(models.Model):
-    status_id = models.IntegerField(default=0)
-    status_name = models.CharField(max_length=100, default='completed')
-    def __str__(self):
-        return f'{self.status_id}'
+# class OrderStatus(models.Model):
+#     status_id = models.IntegerField(default=0)
+#     status_name = models.CharField(max_length=100, default='completed')
+#     def __str__(self):
+#         return f'{self.status_id}'
 
 class Service(models.Model):
     image = models.ImageField(upload_to='servicepic/', default='servicepic/default_img.jpg', blank=True)
@@ -37,7 +37,7 @@ class Service(models.Model):
 
     user = models.ForeignKey("User", related_name='service_user', on_delete=models.CASCADE, null=True)
     orderuser = models.ForeignKey("User", related_name='service_orderuser', on_delete=models.CASCADE, null=True, blank=True)
-    orderstatus = models.ForeignKey("OrderStatus", related_name='service_orderstatus', on_delete=models.CASCADE, default=1)
+    # orderstatus = models.ForeignKey("OrderStatus", related_name='service_orderstatus', on_delete=models.CASCADE, default=1)
 
     isDeleteByUser  = models.BooleanField(default=False)
     isDeleteByOrderUser = models.BooleanField(default=False)
@@ -58,7 +58,7 @@ class Need(models.Model):
 
     user = models.ForeignKey("User", related_name='need_user', on_delete=models.CASCADE, null=True)
     orderuser = models.ForeignKey("User", related_name='need_orderuser', on_delete=models.CASCADE, null=True, blank=True)
-    orderstatus = models.ForeignKey("OrderStatus", related_name='need_orderstatus', on_delete=models.CASCADE, default=1)
+    # orderstatus = models.ForeignKey("OrderStatus", related_name='need_orderstatus', on_delete=models.CASCADE, default=1)
 
     isDeleteByUser = models.BooleanField(default=False)
     isDeleteByOrderUser = models.BooleanField(default=False)

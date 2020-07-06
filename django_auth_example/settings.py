@@ -32,6 +32,8 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     'transfergoods.co.nz',
     'www.transfergoods.co.nz',
+    'localhost',
+    '*',
                  ]
 
 
@@ -96,12 +98,8 @@ WSGI_APPLICATION = 'django_auth_example.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'transfergoods',
-        'USER': 'postgres',
-        'PASSWORD': '13579guo',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 

@@ -4,6 +4,5 @@ WORKDIR /usr/src/app
 COPY requirements.txt /usr/src/app/
 RUN pip install -r /usr/src/app/requirements.txt
 COPY . /usr/src/app
-#ENTRYPOINT ["./docker-entrypoint.sh"]
-
-CMD [ "python", "./manage.py", "runserver", "0.0.0.0:8000"]
+EXPOSE 8000
+CMD exec gunicorn django_auth_example.wsgi:application --bind 0.0.0.0:8000
