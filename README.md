@@ -1,5 +1,9 @@
 # 7420-Assessment
 
+Assessment Deployment:
+API: http://52.62.138.189:8000/api/citys/
+React frontend: http://transfergoods-frontend.s3-website-ap-southeast-2.amazonaws.com/
+
 What transfergoods do?  
 
 C2C platform provides the Postal services by individral, which committed to solving fast, small personal international and domestic express delivery needs.  
