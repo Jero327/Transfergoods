@@ -6,7 +6,7 @@ React frontend: http://transfergoods-frontend.s3-website-ap-southeast-2.amazonaw
 
 What transfergoods do?  
 
-C2C platform provides the Postal services by individral, which committed to solving fast, small personal international and domestic express delivery needs.  
+C2C platform provides the Postal services by individual, which committed to solving fast, small personal international and domestic express delivery needs.  
 
 It provides general functions such as sign up, sign in, find lost password (through email), log out and change password.  
 
