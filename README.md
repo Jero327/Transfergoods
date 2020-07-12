@@ -17,7 +17,7 @@ In purpose of allowing buyer and seller could communicate with each other, there
 HOST: http://transfergoods.co.nz/   http://www.transfergoods.co.nz/   https://transfergoods.herokuapp.com/
 
 How server-side rendering works?
-  Server-side rendering (SSR), is the ability of an application to contribute by displaying the web-page on the server instead of rendering it in the browser. Server-side sends a fully rendered page to the client; the client’s JavaScript bundle takes over and allows the SPA framework to operate. There is also client-side rendering which slows down the procedure of viewing and interacting with the web page.
+  SSR: After the browser initiates a request for a template file through the URL, the server-side directly returns the html file to the browser for rendering, and the client-side does not need to perform any processing, so usually only one request is initiated per page. It doesn’t matter if a new page only has a few items that are different than the other page, the browser will ask for the entire new page and will re-render everything from the ground up.
   In Django:
   `def index(request):
     orderstatus = OrderStatus.objects.get(status_name='published')
