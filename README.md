@@ -25,6 +25,7 @@ API: http://52.62.138.189:8000/api/citys/
 React frontend: http://transfergoods-frontend.s3-website-ap-southeast-2.amazonaws.com/ 
   
 ERD:
+
   ![image info](./staticfiles/ERD.jpg)
   
  
