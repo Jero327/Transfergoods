@@ -95,7 +95,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'transfergoods',
         'USER': 'postgres',
-        'PASSWORD': '13579guo',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -164,10 +164,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'jeraviah2@gmail.com'
-EMAIL_HOST_PASSWORD = '13579guo@'
-DEFAULT_FROM_EMAIL = 'jeraviah2@gmail.com'
-SERVER_EMAIL = 'jeraviah2@gmail.com'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+DEFAULT_FROM_EMAIL = ''
+SERVER_EMAIL = ''
 
 # django_heroku.settings(locals())
 
